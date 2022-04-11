@@ -3,20 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_icons8_skills_64.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_icons8_skills_64__1_.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout-land/activity_edit_profile.xml" value="0.2" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout-land/activity_show_profile.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout/a.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout/activity_edit_profile.xml" value="0.4742468415937804" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout/activity_show_profile.xml" value="0.264" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/menu/menu_profile.xml" value="0.14479166666666668" />
-        <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/drawable/ic_baseline_alternate_email_24.xml" value="0.2265" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.2265" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/drawable/ic_icons8_nome_64.xml" value="0.2265" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/drawable/ic_icons8_skills_24.xml" value="0.2265" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/layout-land/activity_edit_profile.xml" value="0.264" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/layout-land/activity_show_profile.xml" value="0.264" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/giuli/Documents/Poli_LM_Giulia/Anno_2/Semestre_2/Mobile_Application_Development/Labs/Lab2/Lab2/app/src/main/res/layout/activity_show_profile.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.1" />
       </map>
@@ -27,12 +22,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.4" />
-      </ProjectState>
-    </option>
   </component>
 </project>
