@@ -39,12 +39,13 @@ class UserVM(private val app: Application): AndroidViewModel(app) {
         val jsonString = sharedPref.getString("profileJSON", "{}") ?: "{}"
         val json = JSONObject(jsonString)
 
+
         json.apply {
-            fullname.value = optString("fullname", app.getString(R.string.full_name))
-            nickname.value = optString("nickname", app.getString(R.string.nickname))
-            description.value = optString("description", app.getString(R.string.description))
-            location.value = optString("location", app.getString(R.string.location))
-            email.value = optString("email", app.getString(R.string.email))
+            fullname.value = optString("fullname", "")
+            nickname.value = optString("nickname", "")
+            description.value = optString("description", "")
+            location.value = optString("location", "")
+            email.value = optString("email", "")
             skills.value = optString("skills", "")
         }
         loadProfilePicture()

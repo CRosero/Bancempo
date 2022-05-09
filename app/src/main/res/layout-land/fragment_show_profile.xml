@@ -121,7 +121,6 @@
                             android:focusable="false"
                             android:hint="Full Name"
                             android:inputType="none"
-                            android:textColorHint="@color/black"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -158,7 +157,6 @@
                             android:focusable="false"
                             android:hint="Email"
                             android:inputType="none"
-                            android:textColorHint="@color/black"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 
                             <com.google.android.material.textfield.TextInputEditText

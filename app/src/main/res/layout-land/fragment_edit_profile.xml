@@ -125,7 +125,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Full Name"
-                            android:textColorHint="@color/black"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
@@ -155,7 +154,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Email"
-                            android:textColorHint="@color/black"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 

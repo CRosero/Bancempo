@@ -59,7 +59,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
         email_ed.setText(userVM.email.value.toString())
         location_ed.setText(userVM.location.value.toString())
         description_ed.setText(userVM.description.value.toString())
-        skills_ed.setText(getString(R.string.skills))
+        skills_ed.setText("")
 
 
         var skillsString = userVM.skills.value.toString()
@@ -85,7 +85,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
             email_ed.setText(userVM.email.value.toString())
             location_ed.setText(userVM.location.value.toString())
             description_ed.setText(userVM.description.value.toString())
-            skills_ed.setText(getString(R.string.skills))
+            skills_ed.setText("")
             skillsString = userVM.skills.value.toString()
 
             chipGroup.removeAllViews()

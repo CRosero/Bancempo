@@ -67,10 +67,8 @@
                                 android:id="@+id/textViewNickname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="Nickname"
                                 app:endIconMode="clear_text">
 
-                                >
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/textViewNickname_ed"
@@ -78,12 +76,12 @@
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/light_primary_color"
                                     android:clickable="false"
+                                    android:text = "Nickname"
                                     android:drawableLeft="@drawable/ic_icons8_posta_elettronica_30"
                                     android:enabled="false"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
                                     android:inputType="none"
-                                    android:text="Nickname"
                                     android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -123,7 +121,6 @@
                             android:focusable="false"
                             android:hint="Full Name"
                             android:inputType="none"
-                            android:textColorHint="@color/black"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -161,7 +158,6 @@
                             android:focusable="false"
                             android:hint="Email"
                             android:inputType="none"
-                            android:textColorHint="@color/black"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -271,11 +267,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Skills"
-                            app:endIconMode="clear_text"
-                            app:placeholderText="Insert note"
                             app:startIconDrawable="@drawable/ic_icons8_skills_24">
 
-                            >
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textViewSkills_ed"
@@ -287,7 +280,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="none"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/black"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
