@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId){
                 R.id.goToTimeSlotList -> {
                     if (navController.currentDestination?.id != R.id.timeSlotListFragment) {
+
                         navController.navigate(R.id.timeSlotListFragment)
                     }
                     binding.drawerLayout.closeDrawer(GravityCompat.START)

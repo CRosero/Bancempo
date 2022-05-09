@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <group android:checkableBehavior="single">
     <item
         android:id="@+id/goToTimeSlotList"
         android:icon="@drawable/ic_icons8_lista_30"
@@ -9,4 +9,5 @@
         android:id="@+id/goToShowProfile"
         android:icon="@drawable/ic_icons8_nome_64"
         android:title="@string/navdrawer_show_profile" />
+    </group>
 </menu>
