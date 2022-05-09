@@ -90,6 +90,8 @@ class UserVM(private val app: Application): AndroidViewModel(app) {
 
     }
 
+
+
     fun storeProfilePicture(bmp : Bitmap) {
         saveToInternalStorage(bmp)
         loadProfilePicture()

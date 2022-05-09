@@ -75,7 +75,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
         //get value from showprofile
         photo.setImageBitmap(userVM.profilePictureBitmap.value)
-        fullName_ed.setText(arguments?.getString("fullname"))
+        fullName_ed.setText(arguments?.getString("full_name"))
         nickname_ed.setText(arguments?.getString("nickname"))
         email_ed.setText(arguments?.getString("email"))
         location_ed.setText(arguments?.getString("location"))
@@ -110,15 +110,88 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    userVM.updateFromEditProfile(view)
-
-                    setFragmentResult("backPressed", bundleOf())
-                    Toast.makeText(context, R.string.prof_edit_succ , Toast.LENGTH_SHORT).show()
-                    findNavController().popBackStack()
+                    if(validation()) {
+                        println("------------VALIDO")
+                        userVM.updateFromEditProfile(view)
+                        setFragmentResult("backPressed", bundleOf())
+                        Toast.makeText(context, R.string.prof_edit_succ, Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
                 }
             })
 
     }
+
+    private fun validateTextInput(text: TextInputLayout, textEdit: TextInputEditText): Boolean {
+        println("---------${textEdit.text}")
+        if (textEdit.text.isNullOrEmpty()) {
+            text.error = "Please, fill in this field!"
+            return false
+        } else {
+            if (text.hint == "Description") {
+                return if (textEdit.text?.length!! > 200) {
+                    text.error = "Your ${text.hint} is too long."
+                    false
+                } else {
+                    text.error = null
+                    true
+                }
+            } else if (text.hint == "Full name" || text.hint == "Location") {
+                return if (textEdit.text?.length!! > 20) {
+                    text.error = "Your ${text.hint} is too long."
+                    false
+                } else {
+                    text.error = null
+                    return true
+                }
+            } else if (text.hint == "Nickname") {
+                return if (textEdit.text?.length!! > 10) {
+                    text.error = "Your ${text.hint} is too long."
+                    false
+                } else {
+                    text.error = null
+                    true
+                }
+            }
+            else if(text.hint == "Email" ){
+                return if (textEdit.text?.length!! > 40) {
+                    text.error = "Your ${text.hint} is too long."
+                    false
+                } else {
+                    text.error = null
+                    return true
+                }
+            }
+            else return false
+        }
+
+    }
+
+    private fun validation(): Boolean {
+        var valid = true
+
+        if (!validateTextInput(fullName, fullName_ed)) {
+            println("----------------${fullName}")
+            println("----------------${fullName_ed.text}")
+            valid = false
+        }
+        if (!validateTextInput(description, description_ed)) {
+            valid = false
+        }
+        /*
+        if (!validateTextInput(nickname, nickname_ed)) {
+            valid = false
+        }
+        */
+        if (!validateTextInput(email, email_ed)) {
+            valid = false
+        }
+        if (!validateTextInput(location, location_ed)) {
+            valid = false
+        }
+        return valid
+    }
+
 
 
 
