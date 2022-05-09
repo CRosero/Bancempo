@@ -122,6 +122,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     }
 
+
     private fun validateTextInput(text: TextInputLayout, textEdit: TextInputEditText): Boolean {
         println("---------${textEdit.text}")
         if (textEdit.text.isNullOrEmpty()) {
@@ -191,8 +192,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         }
         return valid
     }
-
-
 
 
     private fun showPopup(v: View) {
