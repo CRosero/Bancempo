@@ -40,7 +40,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     private lateinit var skills: TextInputLayout
     private lateinit var description: TextInputLayout
 
-    private lateinit var addchipbutton: ImageButton
     private lateinit var chipGroup: ChipGroup
 
     private val REQUEST_IMAGE_CAPTURE = 1
@@ -75,7 +74,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
         //get value from showprofile
         photo.setImageBitmap(userVM.profilePictureBitmap.value)
-        fullName_ed.setText(arguments?.getString("full_name"))
+        fullName_ed.setText(arguments?.getString("fullname"))
         nickname_ed.setText(arguments?.getString("nickname"))
         email_ed.setText(arguments?.getString("email"))
         location_ed.setText(arguments?.getString("location"))
@@ -126,6 +125,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     private fun validateTextInput(text: TextInputLayout, textEdit: TextInputEditText): Boolean {
         println("---------${textEdit.text}")
         if (textEdit.text.isNullOrEmpty()) {
+            println("---------${textEdit.text}")
             text.error = "Please, fill in this field!"
             return false
         } else {
@@ -163,7 +163,11 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     return true
                 }
             }
-            else return false
+            else {
+                println("---------${textEdit.text}")
+                println("---------${text.hint}")
+                return false
+            }
         }
 
     }
@@ -172,8 +176,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         var valid = true
 
         if (!validateTextInput(fullName, fullName_ed)) {
-            println("----------------${fullName}")
-            println("----------------${fullName_ed.text}")
             valid = false
         }
         if (!validateTextInput(description, description_ed)) {

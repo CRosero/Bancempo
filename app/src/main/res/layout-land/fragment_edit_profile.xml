@@ -124,7 +124,7 @@
                             android:id="@+id/full_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Full Name"
+                            android:hint="Full name"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 

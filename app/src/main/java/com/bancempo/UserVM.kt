@@ -41,7 +41,7 @@ class UserVM(private val app: Application): AndroidViewModel(app) {
 
 
         json.apply {
-            fullname.value = optString("fullname", "")
+            fullname.value = optString("full_name", "")
             nickname.value = optString("nickname", "")
             description.value = optString("description", "")
             location.value = optString("location", "")
@@ -72,7 +72,7 @@ class UserVM(private val app: Application): AndroidViewModel(app) {
     private fun save(skillsText: String) {
         JSONObject()
             .apply {
-                put("fullname", fullname.value)
+                put("full_name", fullname.value)
                 put("nickname", nickname.value)
                 put("description", description.value)
                 put("location", location.value)
