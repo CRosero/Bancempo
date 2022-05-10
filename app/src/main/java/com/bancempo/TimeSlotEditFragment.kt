@@ -88,6 +88,7 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
 
         val confirmButton = view.findViewById<Button>(R.id.confirmationButton)
 
+
         if (modify) {
             confirmButton.visibility = View.GONE
             slider.value = durationEdit.text.toString().toFloat()

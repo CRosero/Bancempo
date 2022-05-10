@@ -23,6 +23,7 @@ class SmallAdvAdapter(private val data: List<SmallAdv>) : RecyclerView.Adapter<S
         private val location: TextView = v.findViewById(R.id.tvSmallAdvLocation)
         private val duration: TextView = v.findViewById(R.id.tvsmallAdvDuration)
         private val edit: FloatingActionButton = v.findViewById(R.id.edit_adv)
+        private val delete: FloatingActionButton = v.findViewById(R.id.delete_adv)
         private val image: ImageView = v.findViewById(R.id.smallAdv_image)
         private val res = v.context.resources
 
@@ -47,7 +48,18 @@ class SmallAdvAdapter(private val data: List<SmallAdv>) : RecyclerView.Adapter<S
                 bundle.putString("note", adv.note)
                 findNavController(it).navigate(R.id.action_timeSlotListFragment_to_timeSlotEditFragment, bundle)
             }
+
+            delete.setOnClickListener{
+                val bundle = Bundle()
+                bundle.putBoolean("deleteFromList", true)
+                bundle.putInt("position", position)
+                println("---------DELETE BUTTON $position")
+                findNavController(it).navigate(R.id.action_timeSlotListFragment_self, bundle)
+            }
         }
+
+
+
 
         fun unbind(){
             edit.setOnClickListener(null)

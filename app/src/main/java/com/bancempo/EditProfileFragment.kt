@@ -1,5 +1,6 @@
 package com.bancempo
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
@@ -11,6 +12,7 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
@@ -65,11 +67,18 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         skills_ed =view.findViewById(R.id.editTextSkills)
         chipGroup = view.findViewById(R.id.chipGroup)
 
+
+        println("----------------ROTATE6 ${chipGroup.childCount}")
+
+
         skills.setEndIconOnClickListener {
+            println("----------------ADDCHIP1 ${chipGroup.childCount}")
             if (skills_ed.text.toString().isNotEmpty()) {
                 addChip(skills_ed.text.toString())
+                println("----------------ADDCHIP2 ${chipGroup.childCount}")
                 skills_ed.setText("")
             }
+
         }
 
         //get value from showprofile
@@ -79,11 +88,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         email_ed.setText(arguments?.getString("email"))
         location_ed.setText(arguments?.getString("location"))
         description_ed.setText(arguments?.getString("description"))
-        val skills_string : String? = arguments?.getString("skills")
+        var skills_string : String? = arguments?.getString("skills")
+
 
         if (skills_string != null) {
-            println("-------------SKILLS $skills_string")
-            chipGroup.removeAllViews()
+            println("----------------ROTATE5 ${chipGroup.childCount}")
+           // chipGroup.removeAllViews()
             skills_string.split(",")?.forEach {
                 val chip = Chip(activity)
                 if (it.isNotEmpty()) {
@@ -94,6 +104,25 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                         chipGroup.removeView(chip)
                     }
                     chipGroup.addView(chip)
+                }
+            }
+        }
+
+        if (savedInstanceState != null) {
+            val skillsString = savedInstanceState.getString("skills")
+            if (skillsString != null) {
+                chipGroup.removeAllViews()
+                skillsString.split(",").forEach {
+                    var chip = Chip(activity);
+                    if(!it.isEmpty()) {
+                        chip.setText(it);
+                        chip.isCloseIconVisible = true;
+
+                        chip.setOnCloseIconClickListener {
+                            chipGroup.removeView(chip)
+                        }
+                        chipGroup.addView(chip);
+                    }
                 }
             }
         }
@@ -110,7 +139,6 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if(validation()) {
-                        println("------------VALIDO")
                         userVM.updateFromEditProfile(view)
                         setFragmentResult("backPressed", bundleOf())
                         Toast.makeText(context, R.string.prof_edit_succ, Toast.LENGTH_SHORT).show()
@@ -121,11 +149,21 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     }
 
+    @SuppressLint("SdCardPath")
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        var chipText = ""
+        for (i in 0 until chipGroup.childCount) {
+            val chip = chipGroup.getChildAt(i) as Chip
+            chipText += "${chip.text},"
+        }
+        outState.putString("skills", chipText)
+    }
+
 
     private fun validateTextInput(text: TextInputLayout, textEdit: TextInputEditText): Boolean {
-        println("---------${textEdit.text}")
         if (textEdit.text.isNullOrEmpty()) {
-            println("---------${textEdit.text}")
             text.error = "Please, fill in this field!"
             return false
         } else {
@@ -163,11 +201,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                     return true
                 }
             }
-            else {
-                println("---------${textEdit.text}")
-                println("---------${text.hint}")
-                return false
-            }
+            else return false
+
         }
 
     }
