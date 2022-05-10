@@ -11,31 +11,13 @@ import com.google.gson.reflect.TypeToken
 class AdvertismentsVM(private val app: Application): AndroidViewModel(app) {
     val advs = MutableLiveData<MutableList<SmallAdv>>()
 
-    fun deleteAnAdv(pos: Int){
-        println("---------DELETE 4 $pos")
-
-        if(advs.value == null){
-            println("------------error")
-        }
-        else{
-            advs.value!!.removeAt(pos)
-
-            val myGson = Gson()
-            val jsonAdvList = myGson.toJson(advs.value)
-
-            val mySharedPref = app.applicationContext.getSharedPreferences("advs_list.bancempo.lab3", Context.MODE_PRIVATE)
-            with(mySharedPref?.edit()) {
-                this?.putString("json_advs_list", jsonAdvList)
-            }?.apply()
-        }
-    }
 
     fun addNewAdv(newAdv: SmallAdv){
         if(advs.value == null){
             println("------------error")
         }
         else{
-            advs.value?.add(0, newAdv)
+            advs.value?.add(newAdv)
 
             val myGson = Gson()
             val jsonAdvList = myGson.toJson(advs.value)

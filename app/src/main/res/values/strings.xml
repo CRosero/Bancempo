@@ -25,6 +25,8 @@
     <string name="adv_edit_succ">Edit successful</string>
     <string name="prof_edit_succ">Edit successful</string>
     <string name="adv_delete_succ">Removal successful</string>
+    <string name="unsuccedes">Something went wrong. Please, try again!</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="small_adv_title">Title: </string>

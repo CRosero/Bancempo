@@ -68,14 +68,9 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         chipGroup = view.findViewById(R.id.chipGroup)
 
 
-        println("----------------ROTATE6 ${chipGroup.childCount}")
-
-
         skills.setEndIconOnClickListener {
-            println("----------------ADDCHIP1 ${chipGroup.childCount}")
             if (skills_ed.text.toString().isNotEmpty()) {
                 addChip(skills_ed.text.toString())
-                println("----------------ADDCHIP2 ${chipGroup.childCount}")
                 skills_ed.setText("")
             }
 
@@ -92,8 +87,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
 
         if (skills_string != null) {
-            println("----------------ROTATE5 ${chipGroup.childCount}")
-           // chipGroup.removeAllViews()
+            chipGroup.removeAllViews()
             skills_string.split(",")?.forEach {
                 val chip = Chip(activity)
                 if (it.isNotEmpty()) {

@@ -32,26 +32,12 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
         val rv = view.findViewById<RecyclerView>(R.id.recyclerView)
         val emptyListTV = view.findViewById<TextView>(R.id.empty_list_tv)
 
-        val delete : Boolean? = arguments?.getBoolean("deleteFromList")
-
-        println("---------SADVS ${sadvs.isEmpty()}")
-
         llm = LinearLayoutManager(context)
         llm.stackFromEnd = true
         llm.reverseLayout = true
         rv.layoutManager = llm
         rv.adapter = SmallAdvAdapter(sadvs)
 
-        if(delete == true){
-            val pos = arguments?.getInt("position")
-            val bundle = Bundle()
-            if (pos != null) {
-                bundle.putInt("position", pos)
-            }
-            setFragmentResult("confirmationOkDeleteToList", bundle)
-            Toast.makeText(context, R.string.adv_delete_succ, Toast.LENGTH_SHORT).show()
-
-        }
 
         if (sadvs.isEmpty()) {
             rv.visibility = View.GONE
@@ -102,27 +88,6 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
             adapter.notifyItemInserted(pos)
             rv.adapter = adapter
         }
-
-        setFragmentResultListener("confirmationOkDeleteToList") { _, bundle ->
-            val pos = bundle.getInt("position")
-
-            println("---------DELETE FRAG LISTENER  $pos")
-
-            advertisementVM.deleteAnAdv(pos)
-            val adapter = SmallAdvAdapter(sadvs)
-            adapter.notifyItemInserted(pos)
-            rv.adapter = adapter
-
-            if (sadvs.isEmpty()) {
-                rv.visibility = View.GONE
-                emptyListTV.visibility = View.VISIBLE
-            } else {
-                rv.visibility = View.VISIBLE
-                emptyListTV.visibility = View.GONE
-            }
-
-        }
-
 
     }
 
