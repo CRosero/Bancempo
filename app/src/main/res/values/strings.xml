@@ -31,5 +31,8 @@
     <string name="small_adv_duration">Duration (h): </string>
     <string name="small_adv_time">Time: </string>
     <string name="small_adv_location">Location: </string>
+    <string name="skill_item_title">Title: </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
