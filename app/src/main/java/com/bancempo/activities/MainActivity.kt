@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bancempo.SignInActivity
 import com.bancempo.data.User
 import com.bancempo.databinding.ActivityMainBinding
 import com.bancempo.models.SharedViewModel
@@ -32,9 +33,10 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private val RC_SIGN_IN: Int = 1
-
     private val sharedVM: SharedViewModel by viewModels()
+
+    // Firebase instance variables
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,8 +82,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return@setNavigationItemSelectedListener true
-
-
                 }
                 R.id.goToShowProfile -> {
                     if (navController.currentDestination?.id != R.id.showProfileFragment) {
@@ -91,13 +91,20 @@ class MainActivity : AppCompatActivity() {
                     return@setNavigationItemSelectedListener true
                 }
                 R.id.logoutItem -> {
-                    logout()
+                    signOut()
                     //sharedVM.cleanAfterLogout()
                 }
-
-
             }
             false
+        }
+
+        // Initialize Firebase Auth and check if the user is signed in
+        auth = Firebase.auth
+        if (auth.currentUser == null) {
+            // Not signed in, launch the Sign In activity
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
+            return
         }
 
         sharedVM.authUser.observe(this) { firebaseUser ->
@@ -113,76 +120,18 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val authUser = sharedVM.authUser.value
-        if (authUser == null) {
-            login()
+        // Check if user is signed in.
+        if (auth.currentUser == null) {
+            // Not signed in, launch the Sign In activity
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
+            sharedVM.afterLogin()
+            return
         }
         else {
             findViewById<NavigationView>(R.id.nav_view).menu.findItem(R.id.sign_in_button).isVisible = false
         }
     }
-
-    private fun login() {
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.GoogleBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
-        )
-
-        val customLayout = AuthMethodPickerLayout.Builder(R.layout.sign_in)
-            .setGoogleButtonId(R.id.sign_in_button)
-            .setPhoneButtonId(R.id.sign_in_phone_button)
-            .build()
-
-        // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAuthMethodPickerLayout(customLayout)
-                .setTheme(R.style.FirebaseUI_DefaultMaterialTheme)
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN
-        )
-    }
-
-    private fun logout() {
-        AuthUI.getInstance()
-            .signOut(this)
-            .addOnSuccessListener {
-                startActivity(Intent(this, MainActivity::class.java))
-                overridePendingTransition(0, 0)
-                finish()
-                overridePendingTransition(0, 0)
-                Toast.makeText(this, "Logout successful!", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == RESULT_OK) {
-                // Successfully signed in
-                Log.d("messaggio: Login result", "Successfully signed in")
-                Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                findViewById<NavigationView>(R.id.nav_view).menu.findItem(R.id.sign_in_button).isVisible = false
-                sharedVM.afterLogin()
-            }
-
-        } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
-            Log.e("messaggio: Login result", "Sign in failed")
-        }
-
-    }
-
 
     override fun onSupportNavigateUp(): Boolean {
         //TODO FUNZIONE PER TORNARE INDIETRO DAL MENU, CAPIRE SE FUNZIONA DA UNDO OPPURE SE BISOGNA SALVARE
@@ -194,5 +143,11 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, drawer)
     }
 
-
+    private fun signOut() {
+        AuthUI.getInstance().signOut(this)
+        Toast.makeText(this, "Logout successful!", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, SignInActivity::class.java))
+        finish()
+    }
+    
 }
