@@ -133,7 +133,7 @@
         android:id="@+id/delete_adv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red_500"
+        android:backgroundTint="@color/divider_color_light"
         android:clickable="true"
         android:contentDescription="delete adv"
         android:contextClickable="true"
