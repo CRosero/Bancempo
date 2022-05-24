@@ -18,31 +18,31 @@ import com.google.android.material.textfield.TextInputLayout
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
     private lateinit var title: TextInputLayout
-    private lateinit var title_ed: TextInputEditText
+    private lateinit var titleEd: TextInputEditText
 
     private lateinit var description: TextInputLayout
-    private lateinit var description_ed: TextInputEditText
+    private lateinit var descriptionEd: TextInputEditText
 
 
     private lateinit var date: TextInputLayout
-    private lateinit var date_ed: TextInputEditText
+    private lateinit var dateEd: TextInputEditText
 
 
     private lateinit var location: TextInputLayout
-    private lateinit var location_ed: TextInputEditText
+    private lateinit var locationEd: TextInputEditText
 
     private lateinit var duration: TextInputLayout
-    private lateinit var duration_ed: TextInputEditText
+    private lateinit var durationEd: TextInputEditText
 
     private lateinit var time: TextInputLayout
-    private lateinit var time_ed: TextInputEditText
+    private lateinit var timeEd: TextInputEditText
 
     private lateinit var note: TextInputLayout
-    private lateinit var note_ed: TextInputEditText
+    private lateinit var noteEd: TextInputEditText
 
     private lateinit var chipGroup: ChipGroup
 
-    private var skills : String? = ""
+    private var skills: String? = ""
 
     private var isMyAdv = false
 
@@ -52,42 +52,31 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         setHasOptionsMenu(true)
 
         title = view.findViewById(R.id.title_adv)
-        title_ed = view.findViewById(R.id.edit_title_text)
-
+        titleEd = view.findViewById(R.id.edit_title_text)
         description = view.findViewById(R.id.description_adv)
-        description_ed = view.findViewById(R.id.edit_description_text)
-
+        descriptionEd = view.findViewById(R.id.edit_description_text)
         date = view.findViewById(R.id.date_adv)
-        date_ed = view.findViewById(R.id.edit_date_text)
-
+        dateEd = view.findViewById(R.id.edit_date_text)
         time = view.findViewById(R.id.time_adv)
-        time_ed = view.findViewById(R.id.edit_time_text)
-
+        timeEd = view.findViewById(R.id.edit_time_text)
         duration = view.findViewById(R.id.duration_adv)
-        duration_ed = view.findViewById(R.id.edit_duration_text)
-
+        durationEd = view.findViewById(R.id.edit_duration_text)
         location = view.findViewById(R.id.edit_duration)
-        location_ed = view.findViewById(R.id.edit_location_text)
-
+        locationEd = view.findViewById(R.id.edit_location_text)
         note = view.findViewById(R.id.note_adv)
-        note_ed = view.findViewById(R.id.edit_note_text)
-
+        noteEd = view.findViewById(R.id.edit_note_text)
         chipGroup = view.findViewById(R.id.chipGroup)
-
-        title_ed.setText(arguments?.getString("title"))
-        description_ed.setText(arguments?.getString("description"))
-        date_ed.setText(arguments?.getString("date"))
-        time_ed.setText(arguments?.getString("time"))
-        duration_ed.setText(arguments?.getString("duration"))
-        location_ed.setText(arguments?.getString("location"))
-        note_ed.setText(arguments?.getString("note"))
-
+        titleEd.setText(arguments?.getString("title"))
+        descriptionEd.setText(arguments?.getString("description"))
+        dateEd.setText(arguments?.getString("date"))
+        timeEd.setText(arguments?.getString("time"))
+        durationEd.setText(arguments?.getString("duration"))
+        locationEd.setText(arguments?.getString("location"))
+        noteEd.setText(arguments?.getString("note"))
         skills = arguments?.getString("skill")
-        println("----ARG $arguments")
-        println("----SKILLS $skills")
 
-        skills?.split(",")?.forEach{
-            if(it != "") {
+        skills?.split(",")?.forEach {
+            if (it != "") {
                 val chip = Chip(activity)
                 chip.text = it
                 chip.setChipBackgroundColorResource(R.color.divider_color)
@@ -100,20 +89,18 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
 
         setFragmentResultListener("confirmationOkModifyToDetails") { _, bundle ->
-            title_ed.setText(bundle.getString("title"))
-            description_ed.setText(bundle.getString("description"))
-            date_ed.setText(bundle.getString("date"))
-            time_ed.setText(bundle.getString("time"))
-            location_ed.setText(bundle.getString("location"))
-            note_ed.setText(bundle.getString("note"))
-            duration_ed.setText(bundle.getString("duration"))
+            titleEd.setText(bundle.getString("title"))
+            descriptionEd.setText(bundle.getString("description"))
+            dateEd.setText(bundle.getString("date"))
+            timeEd.setText(bundle.getString("time"))
+            locationEd.setText(bundle.getString("location"))
+            noteEd.setText(bundle.getString("note"))
+            durationEd.setText(bundle.getString("duration"))
             skills = bundle.getString("skill")
-            println("----BUNDLE $bundle")
-            println("----SKILLS $skills")
 
             chipGroup.removeAllViews()
-            skills!!.split(",").forEach{
-                if(it != "") {
+            skills!!.split(",").forEach {
+                if (it != "") {
                     val chip = Chip(activity)
                     chip.text = it
                     chip.setChipBackgroundColorResource(R.color.divider_color)
@@ -122,7 +109,6 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 }
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -135,40 +121,32 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val bundle = Bundle()
         when (item.itemId) {
-            //clicking on edit adv
             R.id.inDetailsEditAdv -> {
                 bundle.putBoolean("modifyFromDetails", true)
                 bundle.putString("id", arguments?.getString("id"))
-                bundle.putString("title", title_ed.text.toString())
+                bundle.putString("title", titleEd.text.toString())
                 bundle.putInt("position", arguments?.getInt("position")!!)
-                bundle.putString("description", description_ed.text.toString())
-                bundle.putString("duration", duration_ed.text.toString())
-                bundle.putString("date", date_ed.text.toString())
-                bundle.putString("time", time_ed.text.toString())
-                bundle.putString("location", location_ed.text.toString())
-                bundle.putString("note", note_ed.text.toString())
+                bundle.putString("description", descriptionEd.text.toString())
+                bundle.putString("duration", durationEd.text.toString())
+                bundle.putString("date", dateEd.text.toString())
+                bundle.putString("time", timeEd.text.toString())
+                bundle.putString("location", locationEd.text.toString())
+                bundle.putString("note", noteEd.text.toString())
 
                 var chipText = ""
                 for (i in 0 until chipGroup.childCount) {
                     val chip = chipGroup.getChildAt(i) as Chip
-                        println("--------CHIP ${chipGroup.childCount}")
-                        if (i == chipGroup.childCount - 1) {
-                            chipText += "${chip.text}"
-
-                        } else {
-                            chipText += "${chip.text},"
-                        }
+                    chipText += "${chip.text}"
+                    if (i != chipGroup.childCount - 1) {
+                        chipText += ","
+                    }
                 }
-
-                bundle.putString("skill",  chipText)
-
-                println("----ARG222 $chipText")
-
+                bundle.putString("skill", chipText)
                 requireView().findNavController()
                     .navigate(R.id.action_timeSlotDetailsFragment_to_timeSlotEditFragment, bundle)
                 return super.onOptionsItemSelected(item)
             }
-            //clicking back button
+            //Click back button
             else -> {
                 return NavigationUI.onNavDestinationSelected(
                     item,

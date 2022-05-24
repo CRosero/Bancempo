@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                                 android:id="@+id/nick_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="Nickname"
+                                android:hint="@string/nickname"
                                 app:endIconMode="clear_text">
 
                                 <com.google.android.material.textfield.TextInputEditText
@@ -90,7 +90,7 @@
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/light_primary_color"
                                     android:drawableLeft="@drawable/ic_icons8_posta_elettronica_30"
-                                    android:text="Nickname"
+                                    android:text="@string/nickname"
                                     android:textColor="@color/black" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +126,7 @@
                             android:id="@+id/full_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Full Name"
+                            android:hint="@string/full_name"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
@@ -156,7 +156,7 @@
                             android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Email"
+                            android:hint="@string/email_hint"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 
@@ -185,7 +185,7 @@
                             android:id="@+id/location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Location"
+                            android:hint="@string/location"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_segnaposto_50">
 
@@ -216,7 +216,7 @@
                             android:id="@+id/description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Description"
+                            android:hint="@string/description"
                             app:endIconMode="clear_text"
                             app:startIconDrawable="@drawable/ic_icons8_documento_50">
 
@@ -249,11 +249,11 @@
                             android:id="@+id/skills"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Skills"
-                            app:placeholderText="Insert a skill"
-                            app:endIconMode="custom"
-                            app:endIconDrawable="@drawable/ic_icons8_ok"
+                            android:hint="@string/skills"
                             app:endIconContentDescription="Insert a skill"
+                            app:endIconDrawable="@drawable/ic_icons8_ok"
+                            app:endIconMode="custom"
+                            app:placeholderText="Insert a skill"
                             app:startIconDrawable="@drawable/ic_icons8_skills_24">
 
                             <com.google.android.material.textfield.TextInputEditText

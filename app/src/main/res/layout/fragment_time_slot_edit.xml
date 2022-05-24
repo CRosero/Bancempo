@@ -2,7 +2,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -51,7 +50,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/light_primary_color"
                                 android:backgroundTint="@color/light_primary_color"
-                                android:hint="Title"
+                                android:hint="@string/title"
                                 app:endIconMode="clear_text"
                                 app:placeholderText="Insert title"
                                 app:startIconDrawable="@drawable/ic_icons8_etichetta_50">
@@ -88,7 +87,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/light_primary_color"
                                 android:backgroundTint="@color/light_primary_color"
-                                android:hint="Description"
+                                android:hint="@string/description"
                                 app:endIconMode="clear_text"
                                 app:placeholderText="Insert description"
                                 app:startIconDrawable="@drawable/ic_icons8_documentobianco_50">
@@ -132,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:hint="Date"
+                            android:hint="@string/date"
                             android:inputType="none"
                             android:textColorHint="@color/black"
                             app:startIconDrawable="@drawable/ic_icons8_calendario_50">
@@ -178,7 +177,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:hint="Time"
+                            android:hint="@string/time"
                             android:inputType="none"
                             app:startIconDrawable="@drawable/ic_icons8_orologio_50">
 
@@ -251,14 +250,14 @@
                     android:id="@+id/slider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="Slider to select duration in hours"
                     android:stepSize="0.5"
                     android:valueFrom="0.5"
                     android:valueTo="6.0"
                     app:labelBehavior="gone"
                     app:trackColor="@color/divider_color"
                     app:trackColorActive="@color/divider_color_dark"
-                    app:trackColorInactive="@color/divider_color_light"
-                    android:contentDescription="Slider to select duration in hours"/>
+                    app:trackColorInactive="@color/divider_color_light" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -352,11 +351,8 @@
                     android:id="@+id/chipGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:singleSelection="false"
-                    android:layout_marginBottom="40dp" >
-                </com.google.android.material.chip.ChipGroup>
-
-
+                    android:layout_marginBottom="40dp"
+                    app:singleSelection="false"></com.google.android.material.chip.ChipGroup>
 
 
             </LinearLayout>
@@ -369,7 +365,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/dark_primary_color"
-                android:text="Save changes"/>
+                android:text="Save changes" />
 
         </LinearLayout>
     </ScrollView>

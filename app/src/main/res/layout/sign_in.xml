@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -11,28 +10,25 @@
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/top_progress_bar"
         style="@style/FirebaseUI.TopProgressBar"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <!-- TODO remove lint ignore once the bug is fixed:
-         https://issuetracker.google.com/issues/38281866-->
     <ImageView
         android:id="@+id/logo"
         style="@style/FirebaseUI.AuthMethodPicker.Logo"
-        android:src="@drawable/placeholder_logo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/placeholder_logo"
         app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
         tools:background="#bfbfbf"
-        tools:ignore="ContentDescription"
-         />
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:id="@+id/container"
@@ -40,10 +36,10 @@
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/fui_field_padding_vert"
         android:fillViewport="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintBottom_toTopOf="@+id/main_tos_and_pp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintVertical_weight="2">
 
         <LinearLayout
@@ -53,21 +49,19 @@
             tools:background="#bfbfbf"
             tools:layout_height="250dp">
 
-            <com.google.android.material.button.MaterialButton
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
+            <com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/sign_in_button"
+                style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
                 android:text="@string/fui_sign_in_with_google" />
 
-            <com.google.android.material.button.MaterialButton
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/sign_in_phone_button"
                 style="@style/FirebaseUI.Button.AccountChooser.PhoneButton"
+                android:clickable="false"
+                android:enabled="false"
                 android:text="@string/fui_sign_in_with_phone"
                 android:visibility="invisible"
-                android:enabled="false"
-                android:clickable="false"
                 tools:ignore="UnusedIds" /> <!-- Used in tests -->
 
         </LinearLayout>
@@ -80,17 +74,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="@dimen/fui_field_padding_vert"
+        android:gravity="center"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container"
         tools:text="By continuing you are indicating that you accept our Terms of Service and Privacy Policy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

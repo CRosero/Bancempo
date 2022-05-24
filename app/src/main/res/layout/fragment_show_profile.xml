@@ -42,11 +42,11 @@
                             style="?android:attr/progressBarStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@+id/cardView2"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:visibility="gone"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_pic"
@@ -79,7 +79,7 @@
                                 android:id="@+id/textViewNickname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="Nickname"
+                                android:hint="@string/nickname"
                                 app:endIconMode="clear_text">
 
 
@@ -131,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:hint="Full Name"
+                            android:hint="@string/full_name"
                             android:inputType="none"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
@@ -168,7 +168,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:hint="Email"
+                            android:hint="@string/email"
                             android:inputType="none"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 
@@ -204,7 +204,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:hint="Location"
+                            android:hint="@string/location"
                             android:inputType="none"
                             app:startIconDrawable="@drawable/ic_icons8_segnaposto_50">
 
@@ -240,10 +240,8 @@
                             android:id="@+id/textViewDescription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Description"
+                            android:hint="@string/description"
                             app:startIconDrawable="@drawable/ic_icons8_documento_50">
-
-                            >
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textViewDescription_ed"
@@ -277,7 +275,7 @@
                             android:id="@+id/textViewSkills"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Skills"
+                            android:hint="@string/skills"
                             app:boxStrokeWidth="0dp"
                             app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_skills_24">

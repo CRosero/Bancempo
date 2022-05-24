@@ -1,8 +1,5 @@
 package com.bancempo.data
 
-import com.bancempo.Skill
-import com.google.firebase.firestore.DocumentReference
-
 data class User(
     val fullname: String,
     val nickname: String,
@@ -10,7 +7,8 @@ data class User(
     val location: String,
     val email: String,
     val skills: List<String>,
-    val imageUser: String) {
+    val imageUser: String
+) {
     constructor() : this(
         "",
         "",

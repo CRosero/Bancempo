@@ -19,8 +19,7 @@
     <fragment
         android:id="@+id/showProfileFragment"
         android:name="com.bancempo.fragments.ShowProfileFragment"
-        android:label="@string/label_showProfileFragment"
-        >
+        android:label="@string/label_showProfileFragment">
         <action
             android:id="@+id/action_showProfileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
@@ -34,8 +33,7 @@
     <fragment
         android:id="@+id/timeSlotDetailsFragment"
         android:name="com.bancempo.fragments.TimeSlotDetailsFragment"
-        android:label="@string/label_timeSlotDetailsFragment"
-        >
+        android:label="@string/label_timeSlotDetailsFragment">
         <action
             android:id="@+id/action_timeSlotDetailsFragment_to_timeSlotEditFragment"
             app:destination="@id/timeSlotEditFragment" />
@@ -50,8 +48,7 @@
     <fragment
         android:id="@+id/timeSlotListFragment"
         android:name="com.bancempo.fragments.TimeSlotListFragment"
-        android:label="@string/label_timeSlotListFragment"
-        >
+        android:label="@string/label_timeSlotListFragment">
         <action
             android:id="@+id/action_timeSlotListFragment_to_timeSlotEditFragment"
             app:destination="@id/timeSlotEditFragment" />
@@ -71,8 +68,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.bancempo.fragments.EditProfileFragment"
-        android:label="@string/label_editProfileFragment"
-        >
+        android:label="@string/label_editProfileFragment">
         <action
             android:id="@+id/action_editProfileFragment_to_showProfileFragment"
             app:destination="@id/showProfileFragment" />
@@ -87,7 +83,7 @@
         android:id="@+id/listSkills"
         android:name="com.bancempo.fragments.ListSkillsFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_list_skills" >
+        tools:layout="@layout/fragment_list_skills">
         <action
             android:id="@+id/action_listSkills_to_showProfileFragment"
             app:destination="@id/showProfileFragment" />

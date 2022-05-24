@@ -2,6 +2,7 @@
     <string name="app_name">Bancempo</string>
     <string name="full_name">Full Name</string>
     <string name="nickname">Nickname</string>
+    <string name="email_hint">Email</string>
     <string name="email">email@address</string>
     <string name="location">Location</string>
     <string name="skills">Skills</string>
@@ -26,21 +27,28 @@
     <string name="prof_edit_succ">Edit successful</string>
     <string name="adv_delete_succ">Removal successful</string>
     <string name="unsuccedes">Something went wrong. Please, try again!</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="skill_remove_confirm">Yes, I am sure</string>
+    <string name="skill_remove_cancel">No, turn back</string>
+    <string name="skill_remove_title">Removing Advertisements</string>
     <string name="small_adv_title">Title: </string>
     <string name="small_adv_date">Date: </string>
     <string name="small_adv_duration">Duration (h): </string>
     <string name="small_adv_time">Time: </string>
     <string name="small_adv_location">Location: </string>
     <string name="skill_item_title">Title: </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="advs_delete_message"> Are you sure you want to delete all the ads related to this skill?</string>
-
-
+    <string name="validate_input_text_error">Please, fill in this field!</string>
+    <string name="advs_edit_prof_skill_error">Define some skills in your profile settings!</string>
+    <string name="advs_edit_skill_error">Define a skill for your adv!</string>
+    <string name="filter_date">Filter by date</string>
+    <string name="empty_advs_list_message">No advertisements yet available. Create one now!</string>
+    <string name="empty_advs_list_search_error">Sorry, no available advertisements for that search!</string>
+    <string name="empty_advs_list_cat_error">Sorry, no available advertisements for that category!</string>
+    <string name="date">Date</string>
+    <string name="title">Title</string>
+    <string name="time">Time</string>
 
 
 </resources>

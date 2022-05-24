@@ -1,26 +1,24 @@
 package com.bancempo.models
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.bancempo.R
 import com.bancempo.Skill
 import com.bancempo.SmallAdv
 import com.bancempo.data.User
-import com.bancempo.fragments.EditProfileFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.textfield.TextInputEditText
@@ -132,11 +130,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun loadImageUserById(userId: String, view: View){
+    fun loadImageUserById(userId: String, view: View) {
         db.collection("users").document(userId).get()
             .addOnSuccessListener { doc ->
                 val imageUser = doc!!.getString("imageUser")
-                if(imageUser != ""){
+                if (imageUser != "") {
                     val ref = storageReference.getReferenceFromUrl(imageUser!!)
                     val smallAdvIV = view.findViewById<ImageView>(R.id.smallAdv_image)
                     Glide.with(app.applicationContext).load(ref)
@@ -145,16 +143,18 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun loadImageUser(iv: ImageView, view: View) {
+        println(currentUser.value?.imageUser)
         if (currentUser.value?.imageUser != "") {
             val myRef = storageReference.getReferenceFromUrl(currentUser.value?.imageUser!!)
             println("bitmap: load")
             val pb = view.findViewById<ProgressBar>(R.id.progressBar)
-            if(pb != null)
+            if (pb != null)
                 pb.visibility = View.VISIBLE
 
             Glide.with(app.applicationContext).load(myRef)
-                .listener(object: RequestListener<Drawable>{
+                .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(
                         resource: Drawable?,
                         model: Any?,
@@ -163,7 +163,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         isFirstResource: Boolean
                     ): Boolean {
                         println("bitmap: ready!")
-                        if(pb!=null)
+                        if (pb != null)
                             pb.visibility = View.GONE
                         iv.visibility = View.VISIBLE
                         return false
@@ -176,8 +176,6 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         isFirstResource: Boolean
                     ): Boolean {
                         println("bitmap: failed!")
-                        //TODO: mettere un immagine per far capire che il caricamento non è andato a buon fine
-                        //iv.setImageBitmap(???)
                         iv.visibility = View.VISIBLE
                         return false
                     }
@@ -243,7 +241,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 println("chip: -> myadv ${myAdvs.value!!.values}")
                 println("chip: -> idToDel $toDelete")
                 val advsToDelete = myAdvs.value!!.values
-                    .filter { x -> containsSkill(toDelete,  x.skill.split(",")) }
+                    .filter { x -> containsSkill(toDelete, x.skill.split(",")) }
                     .toList()
                 println("chip: todelete -> ${advsToDelete.map { x -> x.id }}")
 
@@ -263,7 +261,15 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val skillToDelete = services.value!!.get(deleting)
                         if (skillToDelete != null) {
                             //se tra tutti gli advs che non sono creati da me, ce ne è almeno uno di questa skill
-                            advs.value!!.values.map{x -> println("adv: ${x.title}, skills: ${x.skill.split(",")}")}
+                            advs.value!!.values.map { x ->
+                                println(
+                                    "adv: ${x.title}, skills: ${
+                                        x.skill.split(
+                                            ","
+                                        )
+                                    }"
+                                )
+                            }
                             val advsNotCreatedByMeAssociatedToSkill =
                                 advs.value!!.values.filter { x ->
                                     x.userId != currentUser.value!!.email &&
@@ -290,7 +296,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     for (advToDelete in advsToDelete) {
                         println("batch: prova $advToDelete")
                         val docToDel = advsDocRef.document(advToDelete.id)
-                        println("batch: docref${ docToDel.path }")
+                        println("batch: docref${docToDel.path}")
                         batch.delete(docToDel)
                     }
 
@@ -313,9 +319,9 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean{
-        for(del in listToDelete){
-            if(skillsOfAdv.contains(del)){
+    private fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean {
+        for (del in listToDelete) {
+            if (skillsOfAdv.contains(del)) {
                 return true
             }
         }
@@ -323,6 +329,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     fun createUserIfDoesNotExists() {
+        Log.d("sharedVM", "--------------------create user")
         db.collection("users")
             .whereEqualTo("email", authUser.value!!.email)
             .get()
@@ -349,11 +356,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 }
             }
             .addOnFailureListener {
-                println("problema nel trovare lo user con questa email");
+                println("problema nel trovare lo user con questa email")
             }
     }
 
-    fun loadUser(mail: String) {
+    private fun loadUser(mail: String) {
         db.collection("users")
             .whereEqualTo("email", mail)
             .addSnapshotListener { r, e ->
@@ -380,7 +387,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
 
-    fun loadServices() {
+    private fun loadServices() {
         db.collection("services")
             .addSnapshotListener { r, e ->
                 if (e != null)
@@ -399,7 +406,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun createService(title: String, createdBy: String): Skill {
+    private fun createService(title: String, createdBy: String): Skill {
         return Skill(
             title,
             getCreationTime(),
@@ -408,7 +415,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
 
-    fun loadMyAdvs(userId: String) {
+    private fun loadMyAdvs(userId: String) {
         db.collection("advertisements")
             .whereEqualTo("userId", userId)
             .addSnapshotListener { r, e ->
@@ -448,7 +455,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun loadAdvs() {
+    private fun loadAdvs() {
         db.collection("advertisements")
             .orderBy("creationTime", Query.Direction.DESCENDING)
             .addSnapshotListener { r, e ->
@@ -488,7 +495,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
 
-    fun createAdvFromBundle(bundle: Bundle, id: String): SmallAdv {
+    private fun createAdvFromBundle(bundle: Bundle, id: String): SmallAdv {
         val title = bundle.getString("title") ?: ""
         val date = bundle.getString("date") ?: ""
         val description = bundle.getString("description") ?: ""
