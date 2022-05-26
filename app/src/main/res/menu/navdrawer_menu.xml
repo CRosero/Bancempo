@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/goToTimeSlotList"
-        android:icon="@drawable/ic_icons8_lista_30"
-        android:title="@string/navdrawer_time_slot_list" />
-    <item
-        android:id="@+id/goToShowProfile"
-        android:icon="@drawable/ic_icons8_nome_64"
-        android:title="@string/navdrawer_show_profile" />
+        <item
+            android:id="@+id/goToTimeSlotList"
+            android:icon="@drawable/ic_icons8_lista_30"
+            android:title="@string/navdrawer_time_slot_list" />
+
+        <item
+            android:id="@+id/goToInterestsList"
+            android:icon="@drawable/ic_icons8_mi_piace_50"
+            android:title="@string/navdrawer_interests_list" />
+
+        <item
+            android:id="@+id/goToShowProfile"
+            android:icon="@drawable/ic_icons8_nome_64"
+            android:title="@string/navdrawer_show_profile" />
 
         <item
             android:id="@+id/sign_in_button"
@@ -20,7 +26,6 @@
             android:id="@+id/logoutItem"
             android:icon="@drawable/ic_icons8_logout_50"
             android:title="@string/logout" />
-
 
 
     </group>

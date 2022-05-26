@@ -65,6 +65,8 @@ class SmallAdvAdapter(
             duration.text = "Duration: ${adv.duration}"
             loadProfileImage()
 
+            println("------- ADAPTER")
+
             if (isMyAdvs) {
                 edit.isVisible = true
                 edit.setOnClickListener {
