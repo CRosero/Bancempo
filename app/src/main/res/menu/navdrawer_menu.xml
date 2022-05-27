@@ -21,6 +21,11 @@
             android:icon="@drawable/ic_icons8_logout_50"
             android:title="@string/logout" />
 
+        <item
+            android:id="@+id/chats"
+            android:icon="@drawable/ic_icons8_logout_50"
+            android:title="@string/chats" />
+
 
 
     </group>

@@ -40,6 +40,7 @@
     <string name="login">Login</string>
     <string name="advs_delete_message"> Are you sure you want to delete all the ads related to this skill?</string>
     <string name="accept_or_refuse_proposal">ACCETTI O RIFIUTI: CAMBIAMI IN string</string>
+    <string name="chats">chats</string>
 
 
 </resources>

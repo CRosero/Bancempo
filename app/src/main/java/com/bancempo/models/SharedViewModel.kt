@@ -567,7 +567,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val idAdv = doc.getString("idAdv")
                         val idAsker = doc.getString("idAsker")
                         val idBidder = doc.getString("idBidder")
-                        val conversation = Conversation(idConv!!, idAdv!!, idAsker!!, idBidder!!)
+                        val approved = doc.getBoolean("apporved")
+                        val conversation = Conversation(idConv!!, idAdv!!, idAsker!!, idBidder!!, approved!!)
                         convsMap[doc.id] = conversation
                     }
                     conversations.value = convsMap
@@ -577,7 +578,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun createNewConversation(idAdv: String, idBidder: String, text: String){
         val newId = db.collection("conversations").document().id
-        val newConv = Conversation(newId, idAdv, currentUser.value!!.email, idBidder)
+        val newConv = Conversation(newId, idAdv, currentUser.value!!.email, idBidder, false)
         db.collection("conversations").document(newId)
             .set(newConv)
             .addOnSuccessListener {

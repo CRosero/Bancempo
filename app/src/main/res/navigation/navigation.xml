@@ -97,6 +97,9 @@
         <action
             android:id="@+id/action_listSkills_to_timeSlotListFragment"
             app:destination="@id/timeSlotListFragment" />
+        <action
+            android:id="@+id/action_listSkills_to_listConversationsFragment"
+            app:destination="@id/listConversationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -105,5 +108,14 @@
         <action
             android:id="@+id/action_chatFragment_to_timeSlotDetailsFragment"
             app:destination="@id/timeSlotDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listConversationsFragment"
+        android:name="com.bancempo.ListConversationsFragment"
+        android:label="fragment_list_conversations"
+        tools:layout="@layout/fragment_list_conversations" >
+        <action
+            android:id="@+id/action_listConversationsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
 </navigation>

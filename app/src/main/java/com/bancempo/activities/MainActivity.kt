@@ -92,6 +92,13 @@ class MainActivity : AppCompatActivity() {
                     signOut()
                 }
 
+                R.id.chats -> {
+                    if (navController.currentDestination?.id != R.id.listConversationsFragment) {
+                        navController.navigate(R.id.listConversationsFragment)
+                    }
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    return@setNavigationItemSelectedListener true
+                }
 
             }
             false
