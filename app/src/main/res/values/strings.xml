@@ -39,8 +39,8 @@
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="advs_delete_message"> Are you sure you want to delete all the ads related to this skill?</string>
-
-
+    <string name="by_signin_in_you_agree_to_the_terms_of_service_and_how_personal_data_are_processed_as_described_in_the_privacy_policy">By signin in, you agree to the Terms of Service and how personal data are processed as described in the Privacy Policy</string>
+    <string name="logo_login_page">Logo login page</string>
 
 
 </resources>

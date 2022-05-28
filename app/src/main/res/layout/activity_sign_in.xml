@@ -23,69 +23,46 @@ tools:context=".SignInActivity">
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
+        android:contentDescription="@string/logo_login_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logobancempo" />
 
-<ScrollView
-    android:id="@+id/container"
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_marginBottom="@dimen/fui_field_padding_vert"
-    android:fillViewport="true"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/guideline3"
-    app:layout_constraintBottom_toTopOf="@+id/main_tos_and_pp"
-    app:layout_constraintVertical_weight="2">
+    <ScrollView
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        app:layout_constraintVertical_weight="2">
 
-    <LinearLayout
-        android:id="@+id/btn_holder"
-        style="@style/FirebaseUI.AuthMethodPicker.ButtonHolder"
-        android:gravity="bottom"
-        tools:background="#bfbfbf"
-        tools:layout_height="250dp">
+        <LinearLayout
+            android:id="@+id/btn_holder"
+            style="@style/FirebaseUI.AuthMethodPicker.ButtonHolder"
+            android:gravity="bottom"
+            tools:background="#bfbfbf"
+            tools:layout_height="250dp">
 
-        <com.google.android.material.button.MaterialButton
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
-            android:id="@+id/sign_in_button"
-            android:text="@string/fui_sign_in_with_google" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_in_button"
+                style="@style/FirebaseUI.Button.AccountChooser.GoogleButton"
+                android:text="@string/fui_sign_in_with_google" />
 
-        <com.google.android.material.button.MaterialButton
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/sign_in_phone_button"
-            style="@style/FirebaseUI.Button.AccountChooser.PhoneButton"
-            android:text="@string/fui_sign_in_with_phone"
-            android:visibility="invisible"
-            android:enabled="false"
-            android:clickable="false"
-            tools:ignore="UnusedIds" /> <!-- Used in tests -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_in_phone_button"
+                style="@style/FirebaseUI.Button.AccountChooser.PhoneButton"
+                android:clickable="false"
+                android:enabled="false"
+                android:text="@string/fui_sign_in_with_phone"
+                android:visibility="invisible"
+                tools:ignore="UnusedIds" /> <!-- Used in tests -->
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
-
-<TextView
-    android:id="@+id/main_tos_and_pp"
-    style="@style/FirebaseUI.Text.BodyText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginBottom="@dimen/fui_field_padding_vert"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:gravity="center"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/container"
-    app:layout_constraintBottom_toBottomOf="parent"
-    tools:text="By continuing you are indicating that you accept our Terms of Service and Privacy Policy" />
+    </ScrollView>
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -95,11 +72,18 @@ tools:context=".SignInActivity">
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="891dp" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/by_signin_in_you_agree_to_the_terms_of_service_and_how_personal_data_are_processed_as_described_in_the_privacy_policy"
+        android:textAlignment="center"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
