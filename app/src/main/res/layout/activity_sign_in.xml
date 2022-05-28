@@ -18,22 +18,15 @@ tools:context=".SignInActivity">
 
 <!-- TODO remove lint ignore once the bug is fixed:
      https://issuetracker.google.com/issues/38281866-->
-<ImageView
-    android:id="@+id/logo"
-    style="@style/FirebaseUI.AuthMethodPicker.Logo"
-    android:src="@drawable/placeholder_logo"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/guideline3"
-    app:layout_constraintVertical_weight="1"
-    tools:background="#bfbfbf"
-    tools:ignore="ContentDescription"
-    />
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logobancempo" />
 
 <ScrollView
     android:id="@+id/container"
