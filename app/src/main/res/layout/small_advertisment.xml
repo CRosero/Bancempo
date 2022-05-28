@@ -16,7 +16,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="140dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp">
@@ -50,7 +50,7 @@
                 <TextView
                     android:id="@+id/tvSmallAdvTime"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:text="@string/small_adv_time"
                     app:layout_constraintBottom_toTopOf="@+id/tvsmallAdvDuration"
                     app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +75,10 @@
                 <TextView
                     android:id="@+id/tvsmallAdvDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:maxLines="1"
                     android:paddingBottom="8dp"
                     android:text="@string/small_adv_date"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/tvSmallAdvTime"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvSmallAdvTitle"
@@ -89,7 +88,7 @@
                 <TextView
                     android:id="@+id/tvsmallAdvDuration"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:maxLines="1"
                     android:text="@string/small_adv_duration"
                     app:layout_constraintBottom_toTopOf="@+id/tvSmallAdvLocation"
@@ -101,7 +100,8 @@
                 <TextView
                     android:id="@+id/tvSmallAdvLocation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on_16"
                     android:text="@string/small_adv_location"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

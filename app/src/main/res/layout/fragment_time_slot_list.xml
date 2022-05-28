@@ -6,114 +6,106 @@
     android:layout_height="match_parent">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView6"
-        android:layout_width="415dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/divider_color_light"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout5"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ly1">
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search advs">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:visibility="gone"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+
+            <LinearLayout
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/filterLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_baseline_add_location_24"
+                    android:text="Location"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/searchLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Search..."
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/filterDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="3"
+                    android:drawableEnd="@drawable/ic_baseline_today_24"
+                    android:text="Date "
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/ly1"
-        android:layout_width="match_parent"
+
+    <Spinner
+        android:id="@+id/sort_spinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal"
+        android:alpha="5"
+        android:clickable="false"
+        android:contentDescription="Sort spinner"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/sort"
+        android:spinnerMode="dropdown"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="193dp"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search advs">
-
-        </androidx.appcompat.widget.SearchView>
-
-        <Spinner
-            android:id="@+id/sort_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="5"
-            android:clickable="false"
-            android:contentDescription="Sort spinner"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/sort"
-            android:spinnerMode="dropdown"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="15dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ly1">
-
-
-        <LinearLayout
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/filterLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_icons8_doppio_gi__16"
-                android:text="Filter by location"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/searchLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search..."
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="3"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/filterDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="3"
-                android:drawableEnd="@drawable/ic_icons8_modifica_il_calendario_24"
-                android:text="Filter by date "
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -134,13 +126,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/sort_spinner" />
 
     <TextView
         android:id="@+id/empty_list_tv"

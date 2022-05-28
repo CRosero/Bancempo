@@ -90,6 +90,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_profile, menu)
+        println("---------CiaoSHow")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

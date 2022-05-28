@@ -6,9 +6,13 @@ import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SearchView
+import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -34,6 +38,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val fab = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         val rv = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -1307,5 +1312,45 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
             date.text = ("${day}/${(month + 1)}/${year} ")
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_filter_adv, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.filter -> {
+                val cv = view?.findViewById<CardView>(
+                    R.id.cardView6
+                )
+                if (cv != null) {
+
+                    if(cv.isVisible)
+                        cv.isVisible=false
+                    else
+                        cv.isVisible=true
+
+                }
+                true
+            }
+            R.id.sort -> {
+                val sp = view?.findViewById<Spinner>(
+                    R.id.sort_spinner
+                )
+                if (sp != null) {
+
+                    if(sp.isVisible)
+                        sp.isVisible=false
+                    else
+                        sp.isVisible=true
+
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

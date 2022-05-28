@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return@setNavigationItemSelectedListener true
                 }
+
                 R.id.logoutItem -> {
                     signOut()
                 }

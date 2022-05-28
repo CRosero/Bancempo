@@ -61,7 +61,7 @@ class SmallAdvAdapter(
             title.text = adv.title
             date.text = "Date: ${adv.date}"
             time.text = "Time: ${adv.time}"
-            location.text = "Location: ${adv.location}"
+            location.text = "${adv.location}"
             duration.text = "Duration: ${adv.duration}"
             loadProfileImage()
 

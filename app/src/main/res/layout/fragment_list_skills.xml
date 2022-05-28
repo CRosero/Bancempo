@@ -7,33 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ListSkillsFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView7"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:backgroundTint="@color/divider_color_light"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/Search_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="731dp"
-        tools:layout_conversion_absoluteWidth="411dp" />
-
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/Search_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/cardView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:queryHint="Search skills"
         tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="379dp"
-        tools:layout_editor_absoluteY="0dp"></androidx.appcompat.widget.SearchView>
+        tools:layout_conversion_absoluteWidth="379dp"></androidx.appcompat.widget.SearchView>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -54,10 +40,10 @@
         android:layout_height="wrap_content"
         android:text="@string/no_data_available"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/Search_bar"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_conversion_absoluteHeight="0dp"
-        tools:layout_conversion_absoluteWidth="0dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_conversion_absoluteWidth="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
