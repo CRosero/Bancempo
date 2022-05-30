@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RatingBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
@@ -29,10 +30,16 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
     private lateinit var chipGroup: ChipGroup
     private var loadImg = true
 
+    private lateinit var giverRatingBar: RatingBar
+    private lateinit var receiverRatingBar: RatingBar
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+
+        giverRatingBar = view.findViewById(R.id.ratingBarGiver)
+        receiverRatingBar = view.findViewById(R.id.ratingBarReceiver)
 
         fullNameEd = view.findViewById(R.id.textViewFullName_ed)
         photo = view.findViewById(R.id.profile_pic)
@@ -44,7 +51,11 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
         skillsEd = view.findViewById(R.id.textViewSkills_ed)
         chipGroup = view.findViewById(R.id.chipGroup)
 
+
+
         sharedVM.currentUser.observe(viewLifecycleOwner) { user ->
+            giverRatingBar.rating = user.giverRating
+            receiverRatingBar.rating = user.receiverRating
             fullNameEd.setText(user.fullname)
             nicknameEd.setText(user.nickname)
             emailEd.setText(user.email)

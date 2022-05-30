@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -126,11 +127,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun loadImageUserById(userId: String, view: View){
+    fun loadImageUserById(userId: String, view: View) {
         db.collection("users").document(userId).get()
             .addOnSuccessListener { doc ->
                 val imageUser = doc!!.getString("imageUser")
-                if(imageUser != ""){
+                if (imageUser != "") {
                     val ref = storageReference.getReferenceFromUrl(imageUser!!)
                     val smallAdvIV = view.findViewById<ImageView>(R.id.smallAdv_image)
                     Glide.with(app.applicationContext).load(ref)
@@ -143,11 +144,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         if (currentUser.value?.imageUser != "") {
             val myRef = storageReference.getReferenceFromUrl(currentUser.value?.imageUser!!)
             val pb = view.findViewById<ProgressBar>(R.id.progressBar)
-            if(pb != null)
+            if (pb != null)
                 pb.visibility = View.VISIBLE
 
             Glide.with(app.applicationContext).load(myRef)
-                .listener(object: RequestListener<Drawable>{
+                .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(
                         resource: Drawable?,
                         model: Any?,
@@ -155,7 +156,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        if(pb!=null)
+                        if (pb != null)
                             pb.visibility = View.GONE
                         iv.visibility = View.VISIBLE
                         return false
@@ -191,6 +192,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         val currentUserRef = db.collection("users").document(currentUser.value!!.email)
         val servicesDocRef = db.collection("services")
         val advsDocRef = db.collection("advertisements")
+        val giverRating = view.findViewById<RatingBar>(R.id.ratingBarGiver).rating
+        val receiverRating = view.findViewById<RatingBar>(R.id.ratingBarReceiver).rating
         val fullname = view.findViewById<TextInputEditText>(R.id.editTextFullName).text.toString()
         val nickname = view.findViewById<TextInputEditText>(R.id.editTextNickname).text.toString()
         val email = view.findViewById<TextInputEditText>(R.id.editTextEmail).text.toString()
@@ -226,12 +229,16 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     location,
                     email,
                     finalList,
-                    currentUser.value!!.imageUser
+                    currentUser.value!!.imageUser,
+                    giverRating.toDouble(),
+                    receiverRating.toDouble()
                 )
 
                 val advsToDelete = advs.value!!.values
-                    .filter { x -> x.userId == currentUser.value!!.email
-                            && containsSkill(toDelete,  x.skill.split(",")) }
+                    .filter { x ->
+                        x.userId == currentUser.value!!.email
+                                && containsSkill(toDelete, x.skill.split(","))
+                    }
                     .toList()
 
 
@@ -296,9 +303,9 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean{
-        for(del in listToDelete){
-            if(skillsOfAdv.contains(del)){
+    fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean {
+        for (del in listToDelete) {
+            if (skillsOfAdv.contains(del)) {
                 return true
             }
         }
@@ -318,7 +325,9 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         "",
                         authUser.value!!.email!!,
                         listOf(),
-                        ""
+                        "",
+                        0.0,
+                        0.0
                     )
                     db.collection("users").document(authUser.value!!.email!!)
                         .set(newUser)
@@ -348,9 +357,18 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
+                        val giverRating = doc.getString("giverRating")
+                        val receiverRating = doc.getString("receiverRating")
                         val user = User(
-                            fullname!!, nickname!!, description!!, location!!,
-                            email!!, listOfSkills, imageUser!!
+                            fullname!!,
+                            nickname!!,
+                            description!!,
+                            location!!,
+                            email!!,
+                            listOfSkills,
+                            imageUser!!,
+                            giverRating!!.toDouble(),
+                            receiverRating!!.toDouble()
                         )
 
                         currentUser.value = user
@@ -533,6 +551,40 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
+    fun submitNewRating(
+        userId: String,
+        isMyAdv: Boolean,
+        advGiverRating: Double,
+        advReceiverRating: Double
+    ) {
+
+        var giverRating: Double
+        var receiverRating: Double
+        var newRating: Double? = null
+
+        if (isMyAdv) {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { doc ->
+                    receiverRating = doc.getString("receiverRating")!!.toDouble()
+                    newRating = (receiverRating + advReceiverRating) / 2
+                }
+            if (newRating != null) {
+                db.collection("users").document(userId).update("receiverRating", newRating)
+                Toast.makeText(app.applicationContext, "Error", Toast.LENGTH_SHORT).show()
+            }
+
+        } else {
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { doc ->
+                    giverRating = doc.getString("giverRating")!!.toDouble()
+                    newRating = (giverRating + advGiverRating) / 2
+                }
+            if (newRating != null) {
+                db.collection("users").document(userId).update("giverRating", newRating)
+            }
+
+        }
+    }
 
 }
 

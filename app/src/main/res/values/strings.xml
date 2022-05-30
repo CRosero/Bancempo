@@ -39,9 +39,11 @@
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="advs_delete_message"> Are you sure you want to delete all the ads related to this skill?</string>
-
-
-
-
+    <string name="rating_giver">Giver rating</string>
+    <string name="rating_receiver">Receiver rating</string>
+    <string name="receiver">Receiver:</string>
+    <string name="giver">Giver:</string>
+    <string name="rating_submit_succ">Rating successfully submitted!</string>
+    <string name="rating_text_hint">(Optional) How was it? Share your experience...</string>
 </resources>
 
