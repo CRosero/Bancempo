@@ -6,16 +6,117 @@
     android:layout_height="match_parent">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_marginTop="32dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/smallAdv_image"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="adv image or profile image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/example_profile_pic" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@id/smallAdv_image"
+                android:orientation="vertical"
+                android:outlineProvider="none">
+
+                <TextView
+                    android:id="@+id/tvSmallAdvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/small_adv_time"
+                    app:layout_constraintBottom_toTopOf="@+id/tvsmallAdvDuration"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvsmallAdvDate" />
+
+                <TextView
+                    android:id="@+id/tvSmallAdvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal"
+                    android:maxLines="2"
+                    android:text="@string/small_adv_title"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tvsmallAdvDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="40dp"
+                    tools:layout_conversion_absoluteWidth="56dp" />
+
+                <TextView
+                    android:id="@+id/tvsmallAdvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:maxLines="1"
+                    android:paddingBottom="8dp"
+                    android:text="@string/small_adv_date"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/tvSmallAdvTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSmallAdvTitle"
+                    tools:layout_conversion_absoluteHeight="30dp"
+                    tools:layout_conversion_absoluteWidth="37dp" />
+
+                <TextView
+                    android:id="@+id/tvsmallAdvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:maxLines="1"
+                    android:text="@string/small_adv_duration"
+                    app:layout_constraintBottom_toTopOf="@+id/tvSmallAdvLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSmallAdvTime"
+                    tools:layout_conversion_absoluteHeight="30dp"
+                    tools:layout_conversion_absoluteWidth="64dp" />
+
+                <TextView
+                    android:id="@+id/tvSmallAdvLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/small_adv_location"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvsmallAdvDuration" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/cardView5"
+        app:layout_constraintBottom_toTopOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/rating_header"/>
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -24,7 +125,8 @@
         android:contentDescription="@string/rating_giver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        android:numStars="5"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_rating_description_text"

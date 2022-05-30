@@ -45,5 +45,6 @@
     <string name="giver">Giver:</string>
     <string name="rating_submit_succ">Rating successfully submitted!</string>
     <string name="rating_text_hint">(Optional) How was it? Share your experience...</string>
+    <string name="rating_header">Rate your experience below: </string>
 </resources>
 
