@@ -7,4 +7,9 @@
         <item>A-Z</item>
         <item>Z-A</item>
     </string-array>
+
+    <string-array name="reserved">
+        <item>Reserved by me</item>
+        <item>Reserved by others</item>
+    </string-array>
 </resources>

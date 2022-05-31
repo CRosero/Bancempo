@@ -111,6 +111,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView6" />
 
+    <Spinner
+        android:id="@+id/reservedSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:contentDescription="Reserved spinner"
+        android:dropDownWidth="wrap_content"
+        android:entries="@array/reserved"
+        android:spinnerMode="dropdown"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView6" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
