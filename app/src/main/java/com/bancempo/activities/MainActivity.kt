@@ -74,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         sharedVM.users.observe(this){
         }
 
+        sharedVM.ratings.observe(this){
+        }
+
+        sharedVM.myRatings.observe(this){
+        }
+
 
 
         navView.setNavigationItemSelectedListener {

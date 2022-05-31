@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
@@ -24,6 +26,9 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
     private lateinit var emailEd: TextInputEditText
     private lateinit var locationEd: TextInputEditText
     private lateinit var skillsEd: TextInputEditText
+    private lateinit var ratingBar: RatingBar
+    private lateinit var ratingTV: TextView
+    private lateinit var ratingAmountTV: TextView
 
     private lateinit var photo: ImageView
     private lateinit var chipGroup: ChipGroup
@@ -40,6 +45,9 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
         emailEd = view.findViewById(R.id.textViewEmail_ed)
         locationEd = view.findViewById(R.id.textViewLocation_ed)
         descriptionEd = view.findViewById(R.id.textViewDescription_ed)
+        ratingBar = view.findViewById(R.id.ratingBar)
+        ratingTV = view.findViewById(R.id.rating_num)
+        ratingAmountTV = view.findViewById(R.id.rating_amount)
 
         skillsEd = view.findViewById(R.id.textViewSkills_ed)
         chipGroup = view.findViewById(R.id.chipGroup)
@@ -51,6 +59,9 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
             locationEd.setText(user.location)
             descriptionEd.setText(user.description)
             skillsEd.setText("")
+            ratingBar.rating = user.rating.toFloat()
+            ratingTV.text = user.rating.toString()
+            ratingAmountTV.text = "(${sharedVM.myRatings.value!!.size})"
 
 
             chipGroup.removeAllViews()

@@ -133,6 +133,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         loadConversations()
         loadServices()
         loadUsers()
+        loadMyRatings(email)
     }
 
     fun uploadBitmap(btm: Bitmap, view: View, skillsString: String) {
