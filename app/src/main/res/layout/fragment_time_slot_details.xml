@@ -12,6 +12,7 @@
         tools:layout_editor_absoluteY="-148dp">
 
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -66,13 +67,13 @@
                                         android:id="@+id/edit_title_text"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:backgroundTint="@color/light_primary_color"
                                         android:clickable="false"
                                         android:enabled="false"
                                         android:focusable="false"
                                         android:focusableInTouchMode="false"
                                         android:inputType="none"
-                                        android:textColor="@color/black"
-                                        android:backgroundTint="@color/light_primary_color" />
+                                        android:textColor="@color/black" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,13 +110,13 @@
                                         android:id="@+id/edit_description_text"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:backgroundTint="@color/light_primary_color"
                                         android:clickable="false"
                                         android:enabled="false"
                                         android:focusable="false"
                                         android:focusableInTouchMode="false"
                                         android:inputType="none"
-                                        android:textColor="@color/black"
-                                        android:backgroundTint="@color/light_primary_color" />
+                                        android:textColor="@color/black" />
 
                                 </com.google.android.material.textfield.TextInputLayout>
                             </LinearLayout>
@@ -129,12 +130,22 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="50dp"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/advof"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    tools:text="Adv of" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -292,7 +303,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="40dp"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -328,25 +338,52 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/skills_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Skills"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/ic_icons8_skills_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/error_skills_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/chipGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp" />
+                    android:layout_marginBottom="40dp">
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <Button
+                    android:id="@+id/button_chat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chat" />
+
+                <TextView
+                    android:id="@+id/slotNotAvailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:textAlignment="center" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/button_chat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Chat" />
-
-            <TextView
-                android:id="@+id/slotNotAvailable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/button_rate"

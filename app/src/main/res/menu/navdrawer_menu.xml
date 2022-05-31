@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -19,12 +18,6 @@
             android:id="@+id/goToShowProfile"
             android:icon="@drawable/ic_icons8_nome_64"
             android:title="@string/navdrawer_show_profile" />
-
-        <item
-            android:id="@+id/sign_in_button"
-            android:icon="@drawable/ic_baseline_login_50"
-            android:title="@string/login" />
-
 
         <item
             android:id="@+id/logoutItem"

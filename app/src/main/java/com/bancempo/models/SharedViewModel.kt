@@ -34,7 +34,6 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -66,13 +65,13 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val services: MutableLiveData<HashMap<String, Skill>> by lazy {
         MutableLiveData<HashMap<String, Skill>>().also {
-            loadServices()
+            if (authUser.value != null)
+                loadServices()
         }
     }
 
     val myAdvs: MutableLiveData<HashMap<String, SmallAdv>> by lazy {
         MutableLiveData<HashMap<String, SmallAdv>>().also {
-            //TODO CAPIRE SE SERVE
             if (authUser.value != null) {
                 loadMyAdvs(authUser.value!!.email!!)
             }
@@ -81,13 +80,15 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val advs: MutableLiveData<HashMap<String, SmallAdv>> by lazy {
         MutableLiveData<HashMap<String, SmallAdv>>().also {
-            loadAdvs()
+            if (authUser.value != null)
+                loadAdvs()
         }
     }
 
     val bookedAdvs: MutableLiveData<HashMap<String, SmallAdv>> by lazy {
         MutableLiveData<HashMap<String, SmallAdv>>().also {
-            loadBookedAdvs()
+            if (authUser.value != null)
+                loadBookedAdvs()
         }
     }
 
@@ -106,7 +107,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val users: MutableLiveData<HashMap<String, User>> by lazy {
         MutableLiveData<HashMap<String, User>>().also {
-            loadUsers()
+            if (authUser.value != null)
+                loadUsers()
         }
     }
 
@@ -124,12 +126,13 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun afterLogin() {
-        val email = authUser.value!!.email!!
+    fun afterLogin(currentUser: FirebaseUser) {
+        val email = currentUser.email!!
         loadUser(email)
         loadMyAdvs(email)
         loadConversations()
         loadServices()
+        loadUsers()
     }
 
     fun uploadBitmap(btm: Bitmap, view: View, skillsString: String) {
@@ -556,7 +559,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         )
                         advMap[doc.id] = adv
                     }
-                    advs.value = advMap
+                    bookedAdvs.value = advMap
                 }
             }
     }
@@ -671,7 +674,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     fun createNewMessage(idConv: String, text: String, from: String, to: String) {
         val date = getCreationTime()
         val newId = db.collection("messages").document().id
-        val newMsg = Message(newId, idConv, date, text, from, to)
+        val newMsg = Message(newId, idConv, date, text, from, to, false)
 
         db.collection("messages").document(newId)
             .set(newMsg)
@@ -698,7 +701,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val from = doc.getString("from")
                         val to = doc.getString("to")
                         println("msg: $text")
-                        val msg = Message(idMsg!!, idConv, date!!, text!!, from!!, to!!)
+                        val msg = Message(idMsg!!, idConv, date!!, text!!, from!!, to!!, false)
                         msgsMap[doc.id] = msg
                     }
                     messages.value = msgsMap
@@ -758,6 +761,14 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
+    fun readMessage(idMess: String) {
+        db.collection("messages")
+            .document(idMess)
+            .update("readed", true)
+            .addOnSuccessListener {
+                println("readed: letto!")
+            }
+    }
 
     fun loadRatings() {
         db.collection("ratings")
@@ -826,9 +837,15 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun createNewRating(idAdv: String, idAsker: String, idBidder: String, rating: Double, ratingText: String) {
+    fun createNewRating(
+        idAdv: String,
+        idAsker: String,
+        idBidder: String,
+        rating: Double,
+        ratingText: String
+    ) {
         val newId = db.collection("ratings").document().id
-        val newRating = Rating( idAdv, idAsker, idBidder, rating, ratingText)
+        val newRating = Rating(idAdv, idAsker, idBidder, rating, ratingText)
         db.collection("ratings").document(newId)
             .set(newRating)
             .addOnSuccessListener {
@@ -859,7 +876,6 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 Toast.makeText(app.applicationContext, "Error", Toast.LENGTH_SHORT).show()
             }
     }
-
 
 }
 

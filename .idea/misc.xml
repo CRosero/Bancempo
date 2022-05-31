@@ -3,26 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_add_location_24.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_location_on_16.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_location_on_18.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_search_white_24.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.121" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_chat.xml" value="0.4" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_list_skills.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.2" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/item_chat_me.xml" value="0.18432971014492755" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/item_chat_other.xml" value="0.18432971014492755" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/skill_item.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/small_advertisment.xml" value="0.21603260869565216" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/menu/menu_filter.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/menu/menu_filter_adv.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/menu/menu_profile_picture.xml" value="0.18703703703703703" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/menu/options_menu.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
@@ -31,6 +11,7 @@
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/layout/activity_show_profile.xml" value="0.25" />
         <entry key="..\:/Users/feder/Documents/POLITO/Secondo anno/MAD/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/patri/OneDrive/Desktop/merge login/Bancempo/app/src/main/res/menu/navdrawer_menu.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_show_profile.xml" value="0.1" />
       </map>

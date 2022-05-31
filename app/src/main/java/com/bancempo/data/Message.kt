@@ -22,7 +22,8 @@ data class Message(
     val date: String,
     val text: String,
     val from: String,
-    val to: String
+    val to: String,
+    val readed: Boolean
 )
 
 private object Const{
@@ -58,19 +59,21 @@ class MessageAdapter(private val messageList: List<Message>, private val sharedV
         val textMsg = v.findViewById<TextView>(R.id.text_gchat_message_other)
         val timeMsg = v.findViewById<TextView>(R.id.text_gchat_timestamp_other)
 
-        //TODO: MANCA L IMMAGINE DEL PROF
-
         fun bind(mes: Message){
             val arrDate = mes.date.split(" ")
             val effDate = arrDate[0]
             val arrTime = arrDate[1].split(":")
             val effTime = arrTime[0].plus(":").plus(arrTime[1])
-            val sender = sharedVM.users.value!!.values.filter { us -> us.email == mes.from }
+            println("${sharedVM.users.value}")
+            val sender = sharedVM.users.value!![mes.from]
 
             textMsg.text = mes.text
             dateMsg.text = effDate
             timeMsg.text = effTime
-            nickname.text = sender.get(0).nickname
+            nickname.text = sender!!.nickname
+            if(mes.from != sharedVM.currentUser.value!!.email){
+                sharedVM.readMessage(mes.idMsg)
+            }
         }
     }
 

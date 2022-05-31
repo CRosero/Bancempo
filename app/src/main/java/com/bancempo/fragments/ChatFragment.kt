@@ -72,7 +72,6 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             println("-------------- $idAdv $idBidder")
         }
 
-
         //Nei miei annunci posso accettare/rifiutare la richiesta quindi compaiono i bottoni
         if(idBidder == sharedVM.currentUser.value!!.email){
             textAcceptOrRefuse.visibility = View.VISIBLE
@@ -83,6 +82,16 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
             textAcceptOrRefuse.visibility = View.GONE
             acceptButton.visibility = View.GONE
             refuseButton.visibility = View.GONE
+        }
+
+//Se l'annuncio è booked non posso visualizzare i bottoni accept/reject
+        sharedVM.bookedAdvs.observe(viewLifecycleOwner){ advs ->
+            val filtered = advs.values.filter { adv -> adv.id == idAdv}
+            if(filtered.isNotEmpty()){
+                textAcceptOrRefuse.visibility = View.GONE
+                acceptButton.visibility = View.GONE
+                refuseButton.visibility = View.GONE
+            }
         }
 
         sendButton.setOnClickListener{

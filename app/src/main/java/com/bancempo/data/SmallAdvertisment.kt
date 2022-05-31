@@ -34,7 +34,7 @@ data class SmallAdv(
 )
 
 class SmallAdvAdapter(
-    private val data: List<SmallAdv>, private val isMyAdvs: Boolean,
+    private val data: List<SmallAdv>, private val isMyAdvs: Boolean, private val reservationPage: Boolean,
     private val sharedVM: SharedViewModel
 ) : RecyclerView.Adapter<SmallAdvAdapter.SmallAdvHolder>() {
 
@@ -57,6 +57,7 @@ class SmallAdvAdapter(
             position: Int,
             isMyAdvs: Boolean,
             sharedVM: SharedViewModel,
+            reservationPage: Boolean,
             view: View
         ) {
             title.text = adv.title
@@ -75,6 +76,7 @@ class SmallAdvAdapter(
                     bundle.putInt("position", position)
                     bundle.putString("title", adv.title)
                     bundle.putString("date", adv.date)
+                    bundle.putString("userId", adv.userId)
                     bundle.putString("description", adv.description)
                     bundle.putString("time", adv.time)
                     bundle.putString("duration", adv.duration)
@@ -145,7 +147,7 @@ class SmallAdvAdapter(
 
     //ti dice quale elemento della lista è correntemente visibile e la sua posizione il lista
     override fun onBindViewHolder(holder: SmallAdvHolder, position: Int) {
-        holder.bind(data[position], position, isMyAdvs, sharedVM, holder.itemView)
+        holder.bind(data[position], position, isMyAdvs, sharedVM, reservationPage, holder.itemView)
 
         holder.itemView.setOnClickListener {
 
@@ -156,12 +158,14 @@ class SmallAdvAdapter(
             bundle.putString("date", data[position].date)
             bundle.putString("description", data[position].description)
             bundle.putString("time", data[position].time)
+            bundle.putString("userId", data[position].userId)
             bundle.putString("duration", data[position].duration)
             bundle.putString("location", data[position].location)
             bundle.putString("note", data[position].note)
             bundle.putString("skill", data[position].skill)
             bundle.putString("idBidder", data[position].userId)
             bundle.putBoolean("isMyAdv", isMyAdvs)
+            bundle.putBoolean("reservationPage", reservationPage)
 
             findNavController(it).navigate(
                 R.id.action_timeSlotListFragment_to_timeSlotDetailsFragment,
