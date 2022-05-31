@@ -348,6 +348,13 @@
                 android:layout_marginBottom="15dp"
                 android:textAlignment="center" />
 
+            <Button
+                android:id="@+id/button_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="@string/rate" />
+
 
         </LinearLayout>
     </ScrollView>

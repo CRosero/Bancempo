@@ -1,23 +1,26 @@
 package com.bancempo.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bancempo.R
-import com.bancempo.data.MessageAdapter
 import com.bancempo.models.SharedViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -64,7 +67,15 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
     private var isMyAdv = false
 
     private lateinit var idBidder: String
+    private lateinit var idAsker: String
 
+    private lateinit var rateButton: Button
+
+    private lateinit var ratingBar: RatingBar
+
+    private var advRating: Double = 0.0
+
+    private lateinit var ratingText: TextInputEditText
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,6 +109,11 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         slotUnavailable = view.findViewById(R.id.slotNotAvailable)
         slotUnavailable.isVisible = false
 
+        rateButton = view.findViewById(R.id.button_rate)
+        ratingBar = view.findViewById(R.id.ratingBar)
+        advRating = ratingBar.rating.toDouble()
+        ratingText = view.findViewById(R.id.edit_rating_description_text)
+
         titleEd.setText(arguments?.getString("title"))
         descriptionEd.setText(arguments?.getString("description"))
         dateEd.setText(arguments?.getString("date"))
@@ -110,7 +126,9 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         var createNewConv: Boolean? = false
         idAdv = arguments?.getString("id")!!
 
-        idBidder = arguments?.getString("idBidder")!!
+        idBidder = getGiverId(idAdv) ?: ""
+
+        idAsker = getAskerId(idAdv) ?: ""
 
         skills = arguments?.getString("skill")
 
@@ -150,7 +168,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 val advConvs = convs.values.filter { conv -> conv.idAdv == idAdv }
                 println("-------------ADVCONVS $idAdv ${convs.values.filter { conv -> conv.idAdv == idAdv }}")
                 //tutte le mie conversazioni di quell'annuncio
-                val myAdvConvs = advConvs.filter { conv -> conv.idAsker == sharedVM.currentUser.value!!.email }
+                val myAdvConvs =
+                    advConvs.filter { conv -> conv.idAsker == sharedVM.currentUser.value!!.email }
                 println("-------------MYADVCONVS ${advConvs.filter { conv -> conv.idAsker == sharedVM.currentUser.value!!.email }}")
 
                 //tutte le mie conversazioni di quell'annuncio aperte
@@ -158,7 +177,8 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 println("-------------MYADVOPENED ${myAdvConvs.filter { x -> !x.closed }}")
 
                 //tutte le conversazioni di quell'annuncio non mie
-                val otherAdvConvs = advConvs.filter { conv -> conv.idAsker != sharedVM.currentUser.value!!.email }
+                val otherAdvConvs =
+                    advConvs.filter { conv -> conv.idAsker != sharedVM.currentUser.value!!.email }
                 //tutte le conversazioni di quell'annuncio chiuse non mie
                 val otherAdvsClosed = otherAdvConvs.filter { x -> x.closed }
 
@@ -176,7 +196,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
                     if (myAdvsOpened.isEmpty()) {
                         //se sono chiuse non posso più visualizzare il pulsante chat
-                            // vengo avvisato che il bidder ha rifiutato la mia richiesta
+                        // vengo avvisato che il bidder ha rifiutato la mia richiesta
                         chatButton.visibility = View.GONE
                         slotUnavailable.text = getString(R.string.conversationRefused)
                         slotUnavailable.isVisible = true
@@ -188,14 +208,14 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                     }
                 }
                 //ESISTONO DELLE CONVERSAZIONI NON MIE MA TUTTE CHIUSE
-                else if(otherAdvsClosed.size == otherAdvConvs.size){
+                else if (otherAdvsClosed.size == otherAdvConvs.size) {
                     println("------------------ GIUSTO")
                     chatButton.visibility = View.VISIBLE
                     slotUnavailable.isVisible = false
                     createNewConv = true
                 }
                 //ESISTONO CONVERSAZIONI NON MIE TRA CUI ALMENO UNA APERTA
-                else{
+                else {
                     //non posso visualizzare bottone chat e mi avvisano della negoziazione in corso
                     chatButton.visibility = View.GONE
                     slotUnavailable.text = getString(R.string.adv_unavailable)
@@ -268,6 +288,21 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             }
         }
 
+        if (sharedVM.ratings.value!!.values.filter { ratingObj -> ratingObj.idAdv == idAdv }
+                .isEmpty()) {
+            rateButton.visibility = View.VISIBLE
+        }
+
+        rateButton.setOnClickListener {
+            val rateFragment = RateAdvDialogFragment(
+                idAdv,
+                idAsker,
+                idBidder,
+                advRating,
+                ratingText.text.toString()
+            )
+            rateFragment.show(requireActivity().supportFragmentManager, "rate")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -318,6 +353,78 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
                 ) || super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    fun getAskerId(idAdv: String): String? {
+        return sharedVM.conversations.value!!.values.filter { conv -> !conv.closed && conv.idAdv == idAdv }
+            .getOrNull(0)?.idAsker
+    }
+
+    fun getGiverId(idAdv: String): String? {
+        return sharedVM.conversations.value!!.values.filter { conv -> !conv.closed && conv.idAdv == idAdv }
+            .getOrNull(0)?.idBidder
+    }
+
+
+}
+
+class RateAdvDialogFragment(
+    idAdv: String,
+    idAsker: String,
+    idBidder: String,
+    advRating: Double,
+    advRatingText: String
+) :
+    DialogFragment() {
+    private val sharedVM: SharedViewModel by activityViewModels()
+    private val idAdv = idAdv
+    private val idAsker = idAsker
+    private val idBidder = idBidder
+    private val advRating = advRating
+    private val advRatingText = advRatingText
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            // Get the layout inflater
+            val inflater = requireActivity().layoutInflater;
+            // Inflate and set the layout for the dialog
+            // Pass null as the parent view because its going in the dialog layout
+            val userId = arguments?.getString("userId")
+            builder.setView(inflater.inflate(R.layout.dialog_rate, null))
+                // Add action buttons
+                .setPositiveButton(R.string.submit,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        if (advRating < 1) {
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.rating_min_err,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            val otherUserId = if (sharedVM.currentUser.value!!.email == idAsker) {
+                                idBidder
+                            } else {
+                                idAsker
+                            }
+                            sharedVM.submitNewRating(
+                                otherUserId,
+                                idAdv,
+                                idAsker,
+                                idBidder,
+                                advRating,
+                                advRatingText
+                            )
+                        }
+                        getDialog()?.dismiss()
+
+                    })
+                .setNegativeButton(R.string.cancel,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        getDialog()?.cancel()
+                    })
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
 }

@@ -7,7 +7,8 @@ data class User(
     val location: String,
     val email: String,
     val skills: List<String>,
-    val imageUser: String
+    val imageUser: String,
+    val rating: Double
 ) {
     constructor() : this(
         "",
@@ -17,6 +18,7 @@ data class User(
         "",
         listOf(),
         "",
+        0.0
     )
 }
 

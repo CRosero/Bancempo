@@ -50,6 +50,14 @@
     <string name="fui_sign_in_with_phone" />
     <string name="fui_sign_in_with_google" translation_description="Sign in button text">Sign in with Google</string>
     <string name="date">Date </string>
+    <string name="rate">Rate</string>
+    <string name="rating">Rating</string>
+    <string name="rating_submit_succ">Rating successfully submitted!</string>
+    <string name="rating_text_hint">(Optional) How was it? Share your experience...</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="rating_header">Rate your experience below: </string>
+    <string name="rating_min_err">The minimum rating is 1 star.</string>
 
 
 

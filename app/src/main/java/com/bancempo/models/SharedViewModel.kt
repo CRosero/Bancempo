@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RatingBar
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +16,7 @@ import com.bancempo.Skill
 import com.bancempo.SmallAdv
 import com.bancempo.data.Conversation
 import com.bancempo.data.Message
+import com.bancempo.data.Rating
 import com.bancempo.data.User
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -33,7 +35,6 @@ import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -105,7 +106,21 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val users: MutableLiveData<HashMap<String, User>> by lazy {
         MutableLiveData<HashMap<String, User>>().also {
-                loadUsers()
+            loadUsers()
+        }
+    }
+
+    val ratings: MutableLiveData<HashMap<String, Rating>> by lazy {
+        MutableLiveData<HashMap<String, Rating>>().also {
+            loadRatings()
+        }
+    }
+
+    val myRatings: MutableLiveData<HashMap<String, Rating>> by lazy {
+        MutableLiveData<HashMap<String, Rating>>().also {
+            if (authUser.value != null) {
+                loadMyRatings(authUser.value!!.email!!)
+            }
         }
     }
 
@@ -157,11 +172,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun loadImageUserById(userId: String, view: View){
+    fun loadImageUserById(userId: String, view: View) {
         db.collection("users").document(userId).get()
             .addOnSuccessListener { doc ->
                 val imageUser = doc!!.getString("imageUser")
-                if(imageUser != ""){
+                if (imageUser != "") {
                     val ref = storageReference.getReferenceFromUrl(imageUser!!)
                     val smallAdvIV = view.findViewById<ImageView>(R.id.smallAdv_image)
                     Glide.with(app.applicationContext).load(ref)
@@ -174,11 +189,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         if (currentUser.value?.imageUser != "") {
             val myRef = storageReference.getReferenceFromUrl(currentUser.value?.imageUser!!)
             val pb = view.findViewById<ProgressBar>(R.id.progressBar)
-            if(pb != null)
+            if (pb != null)
                 pb.visibility = View.VISIBLE
 
             Glide.with(app.applicationContext).load(myRef)
-                .listener(object: RequestListener<Drawable>{
+                .listener(object : RequestListener<Drawable> {
                     override fun onResourceReady(
                         resource: Drawable?,
                         model: Any?,
@@ -186,7 +201,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         dataSource: DataSource?,
                         isFirstResource: Boolean
                     ): Boolean {
-                        if(pb!=null)
+                        if (pb != null)
                             pb.visibility = View.GONE
                         iv.visibility = View.VISIBLE
                         return false
@@ -215,6 +230,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         val currentUserRef = db.collection("users").document(currentUser.value!!.email)
         val servicesDocRef = db.collection("services")
         val advsDocRef = db.collection("advertisements")
+        val rating = view.findViewById<RatingBar>(R.id.ratingBar).rating.toDouble()
         val fullname = view.findViewById<TextInputEditText>(R.id.editTextFullName).text.toString()
         val nickname = view.findViewById<TextInputEditText>(R.id.editTextNickname).text.toString()
         val email = view.findViewById<TextInputEditText>(R.id.editTextEmail).text.toString()
@@ -250,12 +266,15 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     location,
                     email,
                     finalList,
-                    currentUser.value!!.imageUser
+                    currentUser.value!!.imageUser,
+                    rating
                 )
 
                 val advsToDelete = advs.value!!.values
-                    .filter { x -> x.userId == currentUser.value!!.email
-                            && containsSkill(toDelete,  x.skill.split(",")) }
+                    .filter { x ->
+                        x.userId == currentUser.value!!.email
+                                && containsSkill(toDelete, x.skill.split(","))
+                    }
                     .toList()
 
 
@@ -320,9 +339,9 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean{
-        for(del in listToDelete){
-            if(skillsOfAdv.contains(del)){
+    fun containsSkill(listToDelete: List<String>, skillsOfAdv: List<String>): Boolean {
+        for (del in listToDelete) {
+            if (skillsOfAdv.contains(del)) {
                 return true
             }
         }
@@ -342,7 +361,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         "",
                         authUser.value!!.email!!,
                         listOf(),
-                        ""
+                        "",
+                        0.0
                     )
                     db.collection("users").document(authUser.value!!.email!!)
                         .set(newUser)
@@ -372,9 +392,10 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
+                        val rating = doc.getDouble("rating")
                         val user = User(
                             fullname!!, nickname!!, description!!, location!!,
-                            email!!, listOfSkills, imageUser!!
+                            email!!, listOfSkills, imageUser!!, rating!!
                         )
 
                         currentUser.value = user
@@ -608,13 +629,12 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
-    fun loadConversations(){
+    fun loadConversations() {
         db.collection("conversations")
             .addSnapshotListener { r, e ->
                 if (e != null) {
                     conversations.value = hashMapOf()
-                }
-                else {
+                } else {
                     val convsMap: HashMap<String, Conversation> = hashMapOf()
                     for (doc in r!!) {
                         println("------ ${doc}")
@@ -623,7 +643,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val idAsker = doc.getString("idAsker")
                         val idBidder = doc.getString("idBidder")
                         val closed = doc.getBoolean("closed")
-                        val conversation = Conversation(idConv!!, idAdv!!, idAsker!!, idBidder!!, closed!!)
+                        val conversation =
+                            Conversation(idConv!!, idAdv!!, idAsker!!, idBidder!!, closed!!)
                         convsMap[idConv] = conversation
                     }
                     conversations.value = convsMap
@@ -632,7 +653,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun createNewConversation(idAdv: String, idBidder: String, text: String){
+    fun createNewConversation(idAdv: String, idBidder: String, text: String) {
         println("--------- CREATE CONV $idAdv $idBidder")
         val newId = db.collection("conversations").document().id
         val newConv = Conversation(newId, idAdv, currentUser.value!!.email, idBidder, false)
@@ -647,7 +668,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun createNewMessage(idConv: String, text: String, from: String, to: String){
+    fun createNewMessage(idConv: String, text: String, from: String, to: String) {
         val date = getCreationTime()
         val newId = db.collection("messages").document().id
         val newMsg = Message(newId, idConv, date, text, from, to)
@@ -662,7 +683,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun loadMessages(idConv: String){
+    fun loadMessages(idConv: String) {
         db.collection("messages")
             .whereEqualTo("idConv", idConv)
             .addSnapshotListener { r, e ->
@@ -685,7 +706,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun bookAdv(idAdv: String){
+    fun bookAdv(idAdv: String) {
         db.collection("advertisements").document(idAdv)
             .update("booked", true)
             .addOnSuccessListener {
@@ -697,7 +718,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun closeConversation(idConv: String){
+    fun closeConversation(idConv: String) {
         db.collection("conversations").document(idConv)
             .update("closed", true)
             .addOnSuccessListener {
@@ -724,15 +745,118 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
+                        val rating = doc.getDouble("rating")
                         val user = User(
                             fullname!!, nickname!!, description!!, location!!,
-                            email!!, listOfSkills, imageUser!!
+                            email!!, listOfSkills, imageUser!!, rating!!
                         )
 
                         usersMap[doc.id] = user
                     }
                     users.value = usersMap
                 }
+            }
+    }
+
+
+    fun loadRatings() {
+        db.collection("ratings")
+            .orderBy("rating", Query.Direction.DESCENDING)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    ratings.value = hashMapOf()
+                else {
+                    val ratingMap: HashMap<String, Rating> = hashMapOf()
+                    for (doc in r!!) {
+                        val idAdv = doc.getString("idAdv")
+                        val idAsker = doc.getString("idAsker")
+                        val idBidder = doc.getString("idBidder")
+                        val rating = doc.getDouble("rating")
+                        val ratingText = doc.getString("ratingText")
+                        val ratingObj =
+                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
+                        ratingMap[idAdv] = ratingObj
+                    }
+                    ratings.value = ratingMap
+                }
+            }
+    }
+
+    fun loadMyRatings(userId: String) {
+        db.collection("ratings")
+            .whereEqualTo("idAsker", userId)
+            .orderBy("rating", Query.Direction.DESCENDING)
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    ratings.value = hashMapOf()
+                else {
+                    val ratingMap: HashMap<String, Rating> = hashMapOf()
+                    for (doc in r!!) {
+                        val idAdv = doc.getString("idAdv")
+                        val idAsker = doc.getString("idAsker")
+                        val idBidder = doc.getString("idBidder")
+                        val rating = doc.getDouble("rating")
+                        val ratingText = doc.getString("ratingText")
+                        val ratingObj =
+                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
+                        ratingMap[idAdv] = ratingObj
+                    }
+                    myRatings.value = ratingMap
+                }
+            }
+        db.collection("ratings")
+            .whereEqualTo("idBidder", userId)
+            .orderBy("rating", Query.Direction.DESCENDING)
+            .addSnapshotListener { r, e ->
+                if (e == null) {
+                    val ratingMap: HashMap<String, Rating> = hashMapOf()
+                    for (doc in r!!) {
+                        val idAdv = doc.getString("idAdv")
+                        val idAsker = doc.getString("idAsker")
+                        val idBidder = doc.getString("idBidder")
+                        val rating = doc.getDouble("rating")
+                        val ratingText = doc.getString("ratingText")
+                        val ratingObj =
+                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
+                        ratingMap[idAdv] = ratingObj
+                    }
+                    //unsure whether to use plus() or plusAssign()
+                    myRatings.value?.plus(ratingMap)
+                }
+            }
+    }
+
+    fun createNewRating(idAdv: String, idAsker: String, idBidder: String, rating: Double, ratingText: String) {
+        val newId = db.collection("ratings").document().id
+        val newRating = Rating( idAdv, idAsker, idBidder, rating, ratingText)
+        db.collection("ratings").document(newId)
+            .set(newRating)
+            .addOnSuccessListener {
+                println("-------SUCCESS")
+            }
+            .addOnCanceledListener {
+                println("---------------------------------------- ERROR")
+            }
+    }
+
+    fun submitNewRating(
+        userId: String,
+        idAdv: String,
+        idAsker: String,
+        idBidder: String,
+        advRating: Double,
+        advRatingText: String
+    ) {
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { doc ->
+                val userRating = doc.getDouble("rating")!!
+                val amount = myRatings.value!!.size
+                val newRating = (userRating + advRating) / amount
+                db.collection("users").document(userId).update("rating", newRating)
+                createNewRating(idAdv, idAsker, idBidder, advRating, advRatingText)
+            }
+            .addOnFailureListener { doc ->
+                Toast.makeText(app.applicationContext, "Error", Toast.LENGTH_SHORT).show()
             }
     }
 
