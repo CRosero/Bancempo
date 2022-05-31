@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_timeSlotListFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_timeSlotListFragment_to_timeSlotRateFragment"
+            app:destination="@id/timeSlotRateFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"

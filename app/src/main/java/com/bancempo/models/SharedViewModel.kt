@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import com.bancempo.R
 import com.bancempo.Skill
 import com.bancempo.SmallAdv
+import com.bancempo.data.Conversation
 import com.bancempo.data.User
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -77,6 +78,14 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     val advs: MutableLiveData<HashMap<String, SmallAdv>> by lazy {
         MutableLiveData<HashMap<String, SmallAdv>>().also {
             loadAdvs()
+        }
+    }
+
+    val conversations: MutableLiveData<HashMap<String, Conversation>> by lazy {
+        MutableLiveData<HashMap<String, Conversation>>().also {
+            if (authUser.value != null) {
+                loadConversations()
+            }
         }
     }
 
@@ -192,8 +201,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         val currentUserRef = db.collection("users").document(currentUser.value!!.email)
         val servicesDocRef = db.collection("services")
         val advsDocRef = db.collection("advertisements")
-        val giverRating = view.findViewById<RatingBar>(R.id.ratingBarGiver).rating
-        val receiverRating = view.findViewById<RatingBar>(R.id.ratingBarReceiver).rating
+        val rating = view.findViewById<RatingBar>(R.id.ratingBar).rating
         val fullname = view.findViewById<TextInputEditText>(R.id.editTextFullName).text.toString()
         val nickname = view.findViewById<TextInputEditText>(R.id.editTextNickname).text.toString()
         val email = view.findViewById<TextInputEditText>(R.id.editTextEmail).text.toString()
@@ -230,8 +238,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     email,
                     finalList,
                     currentUser.value!!.imageUser,
-                    giverRating.toDouble(),
-                    receiverRating.toDouble()
+                    rating.toDouble()
                 )
 
                 val advsToDelete = advs.value!!.values
@@ -326,7 +333,6 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         authUser.value!!.email!!,
                         listOf(),
                         "",
-                        0.0,
                         0.0
                     )
                     db.collection("users").document(authUser.value!!.email!!)
@@ -357,8 +363,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
-                        val giverRating = doc.getString("giverRating")
-                        val receiverRating = doc.getString("receiverRating")
+                        val rating = doc.getString("rating")
                         val user = User(
                             fullname!!,
                             nickname!!,
@@ -367,8 +372,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                             email!!,
                             listOfSkills,
                             imageUser!!,
-                            giverRating!!.toDouble(),
-                            receiverRating!!.toDouble()
+                            rating!!.toDouble()
                         )
 
                         currentUser.value = user
@@ -551,40 +555,47 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     }
 
+    fun loadConversations(){
+        db.collection("conversations")
+            .addSnapshotListener { r, e ->
+                if (e != null) {
+                    conversations.value = hashMapOf()
+                }
+                else {
+                    val convsMap: HashMap<String, Conversation> = hashMapOf()
+                    for (doc in r!!) {
+                        println("------ ${doc}")
+                        val idConv = doc.getString("idConv")
+                        val idAdv = doc.getString("idAdv")
+                        val idAsker = doc.getString("idAsker")
+                        val idBidder = doc.getString("idBidder")
+                        val closed = doc.getBoolean("closed")
+                        val conversation = Conversation(idConv!!, idAdv!!, idAsker!!, idBidder!!, closed!!)
+                        convsMap[idConv] = conversation
+                    }
+                    conversations.value = convsMap
+                    println("---------- ${conversations.value}")
+                }
+            }
+    }
+
     fun submitNewRating(
         userId: String,
-        isMyAdv: Boolean,
-        advGiverRating: Double,
-        advReceiverRating: Double
+        advRating: Double
     ) {
-
-        var giverRating: Double
-        var receiverRating: Double
-        var newRating: Double? = null
-
-        if (isMyAdv) {
-            db.collection("users").document(userId).get()
-                .addOnSuccessListener { doc ->
-                    receiverRating = doc.getString("receiverRating")!!.toDouble()
-                    newRating = (receiverRating + advReceiverRating) / 2
-                }
-            if (newRating != null) {
-                db.collection("users").document(userId).update("receiverRating", newRating)
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { doc ->
+                val userRating = doc.getString("rating")!!.toDouble()
+                //val amount = db.collection("ratings").filter{rating -> rating.advId.userId == userId }
+                //val newRating = (userRating + advRating) / amount
+                db.collection("users").document(userId).update("receiverRating", userRating)
+            }
+            .addOnFailureListener { doc ->
                 Toast.makeText(app.applicationContext, "Error", Toast.LENGTH_SHORT).show()
             }
-
-        } else {
-            db.collection("users").document(userId).get()
-                .addOnSuccessListener { doc ->
-                    giverRating = doc.getString("giverRating")!!.toDouble()
-                    newRating = (giverRating + advGiverRating) / 2
-                }
-            if (newRating != null) {
-                db.collection("users").document(userId).update("giverRating", newRating)
-            }
-
-        }
     }
+
+
 
 }
 

@@ -5,11 +5,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.RatingBar
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.bancempo.R
+import com.bancempo.models.SharedViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
@@ -17,6 +22,10 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
+    private val sharedVM: SharedViewModel by activityViewModels()
+
+    private lateinit var userId: String
+
     private lateinit var title: TextInputLayout
     private lateinit var titleEd: TextInputEditText
 
@@ -46,6 +55,14 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private var isMyAdv = false
 
+    private lateinit var reviewButton: Button
+
+    private lateinit var ratingBar: RatingBar
+
+    private var timeSlotRating: Double = 0.0
+
+    private lateinit var ratingDescriptionEdit: TextInputEditText
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,6 +90,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         noteEd = view.findViewById(R.id.edit_note_text)
 
         chipGroup = view.findViewById(R.id.chipGroup)
+
+        reviewButton = view.findViewById(R.id.button_review)
+        ratingBar = view.findViewById(R.id.ratingBar)
+        timeSlotRating = ratingBar.rating.toDouble()
+        ratingDescriptionEdit = view.findViewById(R.id.edit_rating_description_text)
+
 
         titleEd.setText(arguments?.getString("title"))
         descriptionEd.setText(arguments?.getString("description"))
@@ -119,7 +142,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             }
         }
 
+//        reviewButton.setOnClickListener {
+//            val rateFragment = RateAdvDialogFragment(userId, timeSlotRating)
+//            rateFragment.show(requireActivity().supportFragmentManager, "rate")
+//        }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -170,5 +198,53 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             }
         }
     }
+}
 
+class RateAdvDialogFragment : DialogFragment() {
+    private val sharedVM: SharedViewModel by activityViewModels()
+
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        return activity?.let {
+//            val builder = AlertDialog.Builder(it)
+//            // Get the layout inflater
+//            val inflater = requireActivity().layoutInflater;
+//            // Inflate and set the layout for the dialog
+//            // Pass null as the parent view because its going in the dialog layout
+//            val userId = arguments?.getString("userId")
+//            builder.setView(inflater.inflate(R.layout.dialog_rate, null))
+//                // Add action buttons
+//                .setPositiveButton(R.string.submit,
+//                    DialogInterface.OnClickListener { dialog, id ->
+//                        val bundle = Bundle()
+//                        bundle.putDouble("rating", timeSlotRating)
+//                        if (timeSlotRating < 1) {
+//                            Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show()
+//                        } else {
+//                            if ( == sharedVM.authUser.value!!.email!!) {
+//                                sharedVM.submitNewRating(timeSlot.userId, true, 0.0, timeSlotRating)
+//                            } else {
+//                                sharedVM.submitNewRating(
+//                                    timeSlot.userId,
+//                                    false,
+//                                    timeSlotRating,
+//                                    0.0
+//                                )
+//                            }
+//                        }
+//                        getDialog()?.dismiss()
+//                    })
+//                .setNegativeButton(R.string.cancel,
+//                    DialogInterface.OnClickListener { dialog, id ->
+//                        getDialog()?.cancel()
+//                    })
+//            builder.create()
+//        } ?: throw IllegalStateException("Activity cannot be null")
+//    }
+
+
+    fun getIdAsker(): String {
+        sharedVM.conversations.value!!.values
+
+        return ""
+    }
 }

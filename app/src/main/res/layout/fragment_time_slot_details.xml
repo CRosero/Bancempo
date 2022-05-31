@@ -336,6 +336,20 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chat" />
+
+        <Button
+            android:id="@+id/button_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Review" />
+
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
