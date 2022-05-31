@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toTopOf="@id/cardView6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="Search advs">
@@ -23,8 +25,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
+        android:paddingTop="10dp"
         android:visibility="gone"
         app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar">
@@ -51,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_baseline_add_location_24"
                     android:text="Location"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -70,6 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
                 android:alpha="3"
                 android:orientation="vertical">
 
@@ -80,7 +85,7 @@
                     android:alpha="3"
                     android:drawableEnd="@drawable/ic_baseline_today_24"
                     android:text="Date "
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -95,7 +100,7 @@
         android:id="@+id/sort_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="5"
+        android:layout_marginTop="20dp"
         android:clickable="false"
         android:contentDescription="Sort spinner"
         android:dropDownWidth="wrap_content"
@@ -103,9 +108,18 @@
         android:spinnerMode="dropdown"
         android:theme="@style/Theme.MaterialComponents.Light"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/sort_spinner"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        tools:layout_editor_absoluteX="411dp"></LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -123,6 +137,17 @@
         app:srcCompat="@drawable/ic_icons8_plus_50"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/sort_spinner">
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
@@ -138,8 +163,8 @@
         android:layout_height="wrap_content"
         android:text="@string/no_data_available"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
