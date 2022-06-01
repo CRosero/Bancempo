@@ -75,8 +75,6 @@
                             android:layout_height="wrap_content"
                             app:endIconMode="clear_text">
 
-                            >
-
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textViewNickname_ed"
                                 android:layout_width="wrap_content"
@@ -113,6 +111,44 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:orientation="vertical">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tvCredit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:hint="Credit"
+                            android:inputType="none"
+                            app:startIconDrawable="@drawable/ic_icons8_nome_64">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tvCredit_ed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/white"
+                                android:clickable="false"
+                                android:enabled="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:inputType="none"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

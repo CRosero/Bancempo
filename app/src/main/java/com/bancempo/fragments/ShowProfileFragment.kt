@@ -29,7 +29,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
     private lateinit var ratingBar: RatingBar
     private lateinit var ratingTV: TextView
     private lateinit var ratingAmountTV: TextView
-
+    private lateinit var creditEd: TextInputEditText
     private lateinit var photo: ImageView
     private lateinit var chipGroup: ChipGroup
     private var loadImg = true
@@ -48,6 +48,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
         ratingBar = view.findViewById(R.id.ratingBar)
         ratingTV = view.findViewById(R.id.rating_num)
         ratingAmountTV = view.findViewById(R.id.rating_amount)
+        creditEd = view.findViewById(R.id.tvCredit_ed)
 
         skillsEd = view.findViewById(R.id.textViewSkills_ed)
         chipGroup = view.findViewById(R.id.chipGroup)
@@ -58,6 +59,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
             emailEd.setText(user.email)
             locationEd.setText(user.location)
             descriptionEd.setText(user.description)
+            creditEd.setText(user.credit.toString())
             skillsEd.setText("")
             ratingBar.rating = user.rating.toFloat()
             ratingTV.text = user.rating.toString()
@@ -83,7 +85,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
             if (it) {
                 //la foto è nuova
                 if (loadImg) {
-                    sharedVM.loadImageUser(photo, view)
+                    sharedVM.loadImageUser(photo, view, sharedVM.currentUser.value!!)
                 } else {
                     val pb = view.findViewById<ProgressBar>(R.id.progressBar)
                     pb.visibility = View.VISIBLE
@@ -92,7 +94,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
                 }
             } else {
                 //la foto è vecchia
-                sharedVM.loadImageUser(photo, view)
+                sharedVM.loadImageUser(photo, view, sharedVM.currentUser.value!!)
             }
 
         }

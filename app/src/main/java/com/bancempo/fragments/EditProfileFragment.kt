@@ -173,7 +173,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
         val btmString = savedInstanceState?.getString("btmString")
         if (btmString == null) {
-            sharedVM.loadImageUser(photo, view)
+            sharedVM.loadImageUser(photo, view, sharedVM.currentUser.value!!)
         } else {
             btm = stringToBitmap(btmString)
             if (btm != null)

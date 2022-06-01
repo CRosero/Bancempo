@@ -134,6 +134,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         loadServices()
         loadUsers()
         loadMyRatings(email)
+        loadAdvs()
+        loadBookedAdvs()
     }
 
     fun uploadBitmap(btm: Bitmap, view: View, skillsString: String) {
@@ -189,9 +191,9 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun loadImageUser(iv: ImageView, view: View) {
-        if (currentUser.value?.imageUser != "") {
-            val myRef = storageReference.getReferenceFromUrl(currentUser.value?.imageUser!!)
+    fun loadImageUser(iv: ImageView, view: View, user: User) {
+        if (user.imageUser != "") {
+            val myRef = storageReference.getReferenceFromUrl(user.imageUser!!)
             val pb = view.findViewById<ProgressBar>(R.id.progressBar)
             if (pb != null)
                 pb.visibility = View.VISIBLE
@@ -271,7 +273,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     email,
                     finalList,
                     currentUser.value!!.imageUser,
-                    rating
+                    rating,
+                    currentUser.value!!.credit
                 )
 
                 val advsToDelete = advs.value!!.values
@@ -366,6 +369,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         authUser.value!!.email!!,
                         listOf(),
                         "",
+                        0.0,
                         0.0
                     )
                     db.collection("users").document(authUser.value!!.email!!)
@@ -396,10 +400,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
-                        val rating = doc.getDouble("rating")
+                        val rating = doc.getDouble("rating") as Double
+                        val credit = doc.getDouble("credit") as Double
                         val user = User(
                             fullname!!, nickname!!, description!!, location!!,
-                            email!!, listOfSkills, imageUser!!, rating!!
+                            email!!, listOfSkills, imageUser!!, rating, credit
                         )
 
                         currentUser.value = user
@@ -749,10 +754,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val description = doc.getString("description")
                         val listOfSkills = doc.data["skills"] as List<String>
                         val imageUser = doc.getString("imageUser")
-                        val rating = doc.getDouble("rating")
+                        val rating = doc.getDouble("rating") as Double
+                        val credit = doc.getDouble("credit") as Double
                         val user = User(
                             fullname!!, nickname!!, description!!, location!!,
-                            email!!, listOfSkills, imageUser!!, rating!!
+                            email!!, listOfSkills, imageUser!!, rating, credit
                         )
 
                         usersMap[doc.id] = user
@@ -878,5 +884,25 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
+    fun createNewTransaction(idBidder: String, idAsker: String, amountOfTime: Double) {
+        val askerDocRef = db.collection("users").document(idAsker)
+        val bidderDocRef = db.collection("users").document(idBidder)
+
+        val creditAsker = users.value!!.get(idAsker)!!.credit
+        val creditBidder = users.value!!.get(idBidder)!!.credit
+
+        db.runBatch { batch ->
+            batch.update(askerDocRef, "credit", creditAsker - amountOfTime)
+            batch.update(bidderDocRef, "credit", creditBidder + amountOfTime)
+        }
+            .addOnSuccessListener {
+            Toast.makeText(app.applicationContext, "Transaction Completed!", Toast.LENGTH_SHORT)
+                .show()
+        }
+            .addOnFailureListener {
+                Toast.makeText(app.applicationContext, "Transaction Failed!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+    }
 }
 

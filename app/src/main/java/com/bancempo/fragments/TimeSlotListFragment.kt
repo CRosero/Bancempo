@@ -60,10 +60,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
         val myInterests = arguments?.getBoolean("myInterests")
         val myReservations = arguments?.getBoolean("myReservations")
 
-        if (myReservations == null || !myReservations)
-            reservedSpinner.isVisible = false
-        else
-            reservedSpinner.isVisible = true
+        reservedSpinner.isVisible = !(myReservations == null || !myReservations)
 
         if (skill != null) {
             searchLocation.isVisible = false

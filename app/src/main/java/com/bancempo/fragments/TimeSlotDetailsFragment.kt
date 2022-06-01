@@ -13,12 +13,14 @@ import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.bancempo.R
 import com.bancempo.models.SharedViewModel
@@ -79,7 +81,7 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
 
     private lateinit var ratingText: TextInputEditText
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -118,11 +120,13 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
         advRating = ratingBar.rating.toDouble()
         ratingText = view.findViewById(R.id.edit_rating_description_text)
 
+        val userId = arguments?.getString("userId")
+
         titleEd.setText(arguments?.getString("title"))
         descriptionEd.setText(arguments?.getString("description"))
         dateEd.setText(arguments?.getString("date"))
         timeEd.setText(arguments?.getString("time"))
-        advof.setText("Adv of ${arguments?.getString("userId")}")
+        advof.setText("Adv of ".plus(userId))
         durationEd.setText(arguments?.getString("duration"))
         locationEd.setText(arguments?.getString("location"))
         noteEd.setText(arguments?.getString("note"))
@@ -236,7 +240,12 @@ class TimeSlotDetailsFragment : Fragment(R.layout.fragment_time_slot_details) {
             }
         }
 
-        //Quando premo il pulsante chat mi rimanda solo al chatFragment
+        advof.setOnClickListener{
+            val bundle = bundleOf()
+            bundle.putString("userId", userId)
+            requireView().findNavController()
+                .navigate(R.id.action_timeSlotDetailsFragment_to_otherProfileFragment, bundle)
+        }
         chatButton.setOnClickListener {
             val bundle = Bundle()
             val idAdv = arguments?.getString("id")

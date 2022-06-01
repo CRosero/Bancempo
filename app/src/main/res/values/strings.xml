@@ -59,8 +59,5 @@
     <string name="cancel">Cancel</string>
     <string name="rating_header">Rate your experience below: </string>
     <string name="rating_min_err">The minimum rating is 1 star.</string>
-
-
-
+    <string name="noCredit">L\'altro utente non ha credito sufficiente. Puoi attendere che lo maturi entro la data prevista o rifiutare la sua richiesta</string>
 </resources>
-

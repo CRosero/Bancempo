@@ -404,7 +404,11 @@ class TimeSlotEditFragment : Fragment(R.layout.fragment_time_slot_edit) {
                     day = c.get(Calendar.DAY_OF_MONTH)
                 }
             }
-            return DatePickerDialog(requireContext(), this, year, month, day)
+            val dpd = DatePickerDialog(requireContext(), this, year, month, day)
+            val c = Calendar.getInstance()
+            val now = c.timeInMillis
+            dpd.datePicker.minDate = now
+            return dpd
         }
 
         @SuppressLint("SetTextI18n")
