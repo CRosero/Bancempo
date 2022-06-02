@@ -6,11 +6,12 @@
         android:id="@+id/filter"
         android:icon="@drawable/ic_baseline_filter_alt_24"
         android:title=""
+        android:visible="false"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_baseline_sort_24"
         android:title=""
+        android:visible="false"
         app:showAsAction="always" />
 </menu>

@@ -30,6 +30,8 @@ import androidx.cardview.widget.CardView
 //TODO BARRA DI RICERCA IN COMBO CON ALTRI FILTRI
 
 class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
+
+    private var adv_gen: Boolean = false
     private val sharedVM: SharedViewModel by activityViewModels()
     private lateinit var spinnerSort: Spinner
     private lateinit var locationFilter: TextView
@@ -40,11 +42,25 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
     private lateinit var rv: RecyclerView
     private lateinit var emptyListTV: TextView
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_filter_adv, menu)
+        println("----optionsmenu")
+        var sortButton = menu.findItem(R.id.sort)
+        var filterButton = menu.findItem(R.id.filter)
+
+        if(adv_gen){
+            sortButton.setVisible(true)
+            filterButton.setVisible(true)
+        }
+
+
+    }
+
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-
         val fab = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         rv = view.findViewById<RecyclerView>(R.id.recyclerView)
         emptyListTV = view.findViewById<TextView>(R.id.empty_list_tv)
@@ -274,7 +290,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
             }
         } else {
             fab.isVisible = false
-
+            adv_gen = true
             sharedVM.advs.observe(viewLifecycleOwner) { sadvs ->
 
                 var searchListOfAdvs: MutableList<SmallAdv> = sadvs.values.toMutableList()
@@ -287,6 +303,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
                     }.toList().sortedBy { adv -> adv.title }.toMutableList()
                 }
                 renderAdvList(searchListOfAdvs, false, false)
+
 
                 //FILTER BY LOCATION
                 val textWatcher = object : TextWatcher {
@@ -860,10 +877,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_filter_adv, menu)
-    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
