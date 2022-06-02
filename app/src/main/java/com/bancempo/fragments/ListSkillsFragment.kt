@@ -15,6 +15,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.bancempo.R.id.Search_bar
 
@@ -22,6 +23,7 @@ import com.bancempo.R.id.Search_bar
 class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
 
     private val sharedVM: SharedViewModel by activityViewModels()
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -36,7 +38,6 @@ class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
                 val sb = view?.findViewById<SearchView>(
                     Search_bar)
                 if (sb != null) {
-
 
                     if(sb.isVisible)
                         sb.isVisible=false
@@ -53,9 +54,14 @@ class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+
+
         setHasOptionsMenu(true)
 
+
         sharedVM.services.observe(viewLifecycleOwner) { services ->
+
+
 
             val rv = view.findViewById<RecyclerView>(R.id.rvSkill)
             rv.layoutManager = LinearLayoutManager(findNavController().context)

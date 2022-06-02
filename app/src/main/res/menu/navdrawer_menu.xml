@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+
+
+
+    <group android:checkableBehavior="single"
+    android:id="@+id/group1">
+
         <item
             android:id="@+id/goToTimeSlotList"
             android:icon="@drawable/ic_icons8_lista_30"
@@ -14,6 +19,17 @@
             android:id="@+id/goToBookedList"
             android:icon="@drawable/ic_icons8_reservation"
             android:title="@string/navdrawer_booked_list" />
+
+
+    </group>
+
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/subtitle1"
+            android:title="Account">
+        <menu>
         <item
             android:id="@+id/goToShowProfile"
             android:icon="@drawable/ic_icons8_nome_64"
@@ -23,8 +39,8 @@
             android:id="@+id/logoutItem"
             android:icon="@drawable/ic_icons8_logout_50"
             android:title="@string/logout" />
-
-
+        </menu>
+        </item>
     </group>
 
 </menu>
