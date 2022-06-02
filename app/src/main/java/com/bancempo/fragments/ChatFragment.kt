@@ -34,6 +34,10 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private lateinit var refuseButton: ImageButton
     private lateinit var tvNoCredit: TextView
 
+    private lateinit var name_chat: TextView
+    private lateinit var email_chat: TextView
+
+
     private lateinit var textMsg: EditText
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +57,15 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         tvNoCredit = view.findViewById(R.id.tvNoCredit)
         tvNoCredit.visibility = View.GONE
 
+        email_chat = view.findViewById(R.id.email_chat)
+        name_chat = view.findViewById(R.id.name_chat)
+
+        var idB = arguments?.getString("idBidder")!!
+        email_chat.setText(idB)
+       //  var nameB = arguments?.getString("fullname")!!
+       // name_chat.setText(nameB)
+
+        //TODO("CAMBIARE DINAMICAMENTE FOTO E NOME COMPLETO BIDDER")
 
         sendButton = view.findViewById(R.id.button_gchat_send)
         textMsg = view.findViewById(R.id.edit_gchat_message)
