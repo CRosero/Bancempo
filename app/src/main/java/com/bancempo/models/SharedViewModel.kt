@@ -114,11 +114,11 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     val ratings: MutableLiveData<HashMap<String, Rating>> by lazy {
         MutableLiveData<HashMap<String, Rating>>().also {
-            loadRatings()
+            loadAllRatings()
         }
     }
 
-    val myRatings: MutableLiveData<HashMap<String, Rating>> by lazy {
+    val myReceivedRatings: MutableLiveData<HashMap<String, Rating>> by lazy {
         MutableLiveData<HashMap<String, Rating>>().also {
             if (authUser.value != null) {
                 loadMyRatings(authUser.value!!.email!!)
@@ -817,7 +817,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
-    fun loadRatings() {
+    fun loadAllRatings() {
         db.collection("ratings")
             .orderBy("rating", Query.Direction.DESCENDING)
             .addSnapshotListener { r, e ->
@@ -826,13 +826,13 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 else {
                     val ratingMap: HashMap<String, Rating> = hashMapOf()
                     for (doc in r!!) {
+                        val idAuthor = doc.getString("idAuthor")
+                        val idReceiver = doc.getString("idReceiver")
                         val idAdv = doc.getString("idAdv")
-                        val idAsker = doc.getString("idAsker")
-                        val idBidder = doc.getString("idBidder")
-                        val rating = doc.getDouble("rating")
+                        val rating = doc.getDouble("rating") as Double
                         val ratingText = doc.getString("ratingText")
                         val ratingObj =
-                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
+                            Rating(idAuthor!!, idReceiver!!, idAdv!!, rating!!, ratingText!!)
                         ratingMap[idAdv] = ratingObj
                     }
                     ratings.value = ratingMap
@@ -842,7 +842,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun loadMyRatings(userId: String) {
         db.collection("ratings")
-            .whereEqualTo("idAsker", userId)
+            .whereEqualTo("idReceiver", userId)
             .orderBy("rating", Query.Direction.DESCENDING)
             .addSnapshotListener { r, e ->
                 if (e != null)
@@ -850,49 +850,30 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 else {
                     val ratingMap: HashMap<String, Rating> = hashMapOf()
                     for (doc in r!!) {
+                        val idAuthor = doc.getString("idAuthor")
+                        val idReceiver = doc.getString("idReceiver")
                         val idAdv = doc.getString("idAdv")
-                        val idAsker = doc.getString("idAsker")
-                        val idBidder = doc.getString("idBidder")
-                        val rating = doc.getDouble("rating")
+                        val rating = doc.getDouble("rating") as Double
                         val ratingText = doc.getString("ratingText")
                         val ratingObj =
-                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
+                            Rating(idAuthor!!, idReceiver!!, idAdv!!, rating!!, ratingText!!)
                         ratingMap[idAdv] = ratingObj
                     }
-                    myRatings.value = ratingMap
-                }
-            }
-        db.collection("ratings")
-            .whereEqualTo("idBidder", userId)
-            .orderBy("rating", Query.Direction.DESCENDING)
-            .addSnapshotListener { r, e ->
-                if (e == null) {
-                    val ratingMap: HashMap<String, Rating> = hashMapOf()
-                    for (doc in r!!) {
-                        val idAdv = doc.getString("idAdv")
-                        val idAsker = doc.getString("idAsker")
-                        val idBidder = doc.getString("idBidder")
-                        val rating = doc.getDouble("rating")
-                        val ratingText = doc.getString("ratingText")
-                        val ratingObj =
-                            Rating(idAdv!!, idAsker!!, idBidder!!, rating!!, ratingText!!)
-                        ratingMap[idAdv] = ratingObj
-                    }
-                    //unsure whether to use plus() or plusAssign()
-                    myRatings.value?.plus(ratingMap)
+                    myReceivedRatings.value = ratingMap
                 }
             }
     }
 
+
     fun createNewRating(
+        idAuthor: String,
+        idReceiver: String,
         idAdv: String,
-        idAsker: String,
-        idBidder: String,
         rating: Double,
         ratingText: String
     ) {
         val newId = db.collection("ratings").document().id
-        val newRating = Rating(idAdv, idAsker, idBidder, rating, ratingText)
+        val newRating = Rating(idAuthor, idReceiver, idAdv, rating, ratingText)
         db.collection("ratings").document(newId)
             .set(newRating)
             .addOnSuccessListener {
@@ -904,23 +885,27 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     fun submitNewRating(
-        userId: String,
+        idAuthor: String,
+        idReceiver: String,
         idAdv: String,
-        idAsker: String,
-        idBidder: String,
         advRating: Double,
         advRatingText: String
     ) {
-        db.collection("users").document(userId).get()
+        db.collection("users").document(idReceiver).get()
             .addOnSuccessListener { doc ->
-                val userRating = doc.getDouble("rating")!!
-                val amount = myRatings.value!!.size
-                val newRating = (userRating + advRating) / amount
-                db.collection("users").document(userId).update("rating", newRating)
-                createNewRating(idAdv, idAsker, idBidder, advRating, advRatingText)
+                val userRating = doc.getDouble("rating") as Double
+                val amount = ratings.value!!.values.filter{rating -> rating.idReceiver == idReceiver}.size
+                // Check if user has not received any ratings yet
+                val newRating = if (amount == 0) {
+                    advRating
+                } else {
+                    (userRating + advRating) / amount + 1
+                }
+                db.collection("users").document(idReceiver).update("rating", newRating)
+                createNewRating(idAuthor, idReceiver, idAdv, advRating, advRatingText)
             }
             .addOnFailureListener { doc ->
-                Toast.makeText(app.applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(app.applicationContext, "Rating submission error", Toast.LENGTH_SHORT).show()
             }
     }
 

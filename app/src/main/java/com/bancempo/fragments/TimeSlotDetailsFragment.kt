@@ -383,6 +383,7 @@ class RateAdvDialogFragment(
                 // Add action buttons
                 .setPositiveButton(R.string.submit,
                     DialogInterface.OnClickListener { dialog, id ->
+                        val currentUser = sharedVM.currentUser.value!!.email
                         if (advRating < 1) {
                             Toast.makeText(
                                 requireContext(),
@@ -390,22 +391,20 @@ class RateAdvDialogFragment(
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            val otherUserId = if (sharedVM.currentUser.value!!.email == idAsker) {
+                            val otherUserId = if (currentUser == idAsker) {
                                 idBidder
                             } else {
                                 idAsker
                             }
                             sharedVM.submitNewRating(
+                                currentUser,
                                 otherUserId,
                                 idAdv,
-                                idAsker,
-                                idBidder,
                                 advRating,
                                 advRatingText
                             )
                         }
                         getDialog()?.dismiss()
-
                     })
                 .setNegativeButton(R.string.cancel,
                     DialogInterface.OnClickListener { dialog, id ->
