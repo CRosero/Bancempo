@@ -61,7 +61,9 @@
                                     android:hint="Title"
                                     app:endIconMode="clear_text"
                                     app:placeholderText="Insert title"
-                                    app:startIconDrawable="@drawable/ic_icons8_etichetta_50">
+                                    app:startIconDrawable="@drawable/ic_icons8_etichetta_50"
+                                    app:boxStrokeWidth="0dp"
+                                    app:boxStrokeWidthFocused="0dp">
 
                                     <com.google.android.material.textfield.TextInputEditText
                                         android:id="@+id/edit_title_text"
@@ -84,9 +86,9 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginVertical="18dp"
                             android:layout_marginStart="24dp"
                             android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="18dp"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="0dp">
 
@@ -100,6 +102,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Description"
+                                    app:boxStrokeWidth="0dp"
+                                    app:boxStrokeWidthFocused="0dp"
                                     app:endIconMode="clear_text"
                                     app:placeholderText="Insert description"
                                     app:startIconDrawable="@drawable/ic_icons8_documentobianco_50">
@@ -143,8 +147,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:textAlignment="center"
                     android:clickable="true"
+                    android:minHeight="48dp"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
                     tools:text="Adv of" />
 
                 <androidx.cardview.widget.CardView
@@ -166,7 +172,9 @@
                             android:hint="Date"
                             android:inputType="none"
                             android:textColorHint="@color/black"
-                            app:startIconDrawable="@drawable/ic_icons8_calendario_50">
+                            app:startIconDrawable="@drawable/ic_icons8_calendario_50"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edit_date_text"
@@ -202,7 +210,9 @@
                             android:focusable="false"
                             android:hint="Time"
                             android:inputType="none"
-                            app:startIconDrawable="@drawable/ic_icons8_orologio_50">
+                            app:startIconDrawable="@drawable/ic_icons8_orologio_50"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edit_time_text"
@@ -241,7 +251,9 @@
                             android:focusable="false"
                             android:hint="Duration (h)"
                             android:inputType="none"
-                            app:startIconDrawable="@drawable/ic_icons8_hourglass_50">
+                            app:startIconDrawable="@drawable/ic_icons8_hourglass_50"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edit_duration_text"
@@ -278,7 +290,9 @@
                             android:hint="Location"
                             app:endIconMode="clear_text"
                             app:placeholderText="Insert location"
-                            app:startIconDrawable="@drawable/ic_icons8_segnaposto_50">
+                            app:startIconDrawable="@drawable/ic_icons8_segnaposto_50"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             >
 
@@ -317,7 +331,9 @@
                             android:hint="Note"
                             app:endIconMode="clear_text"
                             app:placeholderText="Insert note"
-                            app:startIconDrawable="@drawable/ic_icons8_nota_64">
+                            app:startIconDrawable="@drawable/ic_icons8_nota_64"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             >
 

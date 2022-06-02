@@ -112,6 +112,6 @@
     <fragment
         android:id="@+id/otherProfileFragment"
         android:name="com.bancempo.fragments.OtherProfileFragment"
-        android:label="fragment_other_profile"
+        android:label="Bidder Profile"
         tools:layout="@layout/fragment_show_profile" />
 </navigation>
