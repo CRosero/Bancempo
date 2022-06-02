@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         sharedVM.ratings.observe(this){
         }
 
-        sharedVM.myRatings.observe(this){
+        sharedVM.myReceivedRatings.observe(this){
         }
 
 
