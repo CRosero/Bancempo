@@ -23,7 +23,7 @@ import com.bancempo.R.id.Search_bar
 class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
 
     private val sharedVM: SharedViewModel by activityViewModels()
-
+    private lateinit var emptyListTV: TextView
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -62,11 +62,20 @@ class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
         sharedVM.services.observe(viewLifecycleOwner) { services ->
 
 
-
+            emptyListTV = view.findViewById<TextView>(R.id.empty_list_tv)
             val rv = view.findViewById<RecyclerView>(R.id.rvSkill)
             rv.layoutManager = LinearLayoutManager(findNavController().context)
 
             val adapter = ItemAdapter(services.values.sortedBy { x -> x.title }.toList())
+
+            if (services.values.isEmpty()) {
+                rv.visibility = View.GONE
+                emptyListTV.visibility = View.VISIBLE
+                emptyListTV.text = getString(R.string.no_skill_at_all)
+            } else {
+                rv.visibility = View.VISIBLE
+                emptyListTV.visibility = View.GONE
+            }
             rv.adapter = adapter
 
             val sb = view.findViewById<SearchView>(Search_bar)
@@ -76,6 +85,15 @@ class ListSkillsFragment : Fragment(R.layout.fragment_list_skills) {
                         x.title.toLowerCase().contains(newText.toLowerCase())
                     }
                     val newAdapter = ItemAdapter(searchListOfSkills.toList())
+                    if (searchListOfSkills.isEmpty()) {
+                        rv.visibility = View.GONE
+                        emptyListTV.visibility = View.VISIBLE
+                        emptyListTV.text = getString(R.string.no_skill)
+                    } else {
+                        rv.visibility = View.VISIBLE
+                        emptyListTV.visibility = View.GONE
+                    }
+                    rv.adapter = adapter
                     rv.adapter = newAdapter
                     return false
                 }

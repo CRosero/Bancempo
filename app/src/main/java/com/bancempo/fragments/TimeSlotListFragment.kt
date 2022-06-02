@@ -25,6 +25,7 @@ import com.bancempo.SmallAdvAdapter as SmallAdvAdapter1
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 
 //TODO BARRA DI RICERCA IN COMBO CON ALTRI FILTRI
@@ -123,6 +124,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
 
             if (myInterests != null && myInterests) {
                 //Page MY INTERESTS
+                (activity as AppCompatActivity).supportActionBar?.title = "My Interests"
                 val interests: MutableList<SmallAdv> = mutableListOf()
 
                 rv.layoutManager = LinearLayoutManager(context)
@@ -171,7 +173,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
                 }
             } else if (myReservations != null && myReservations) {
                 //Page MY RESERVATIONS
-
+                (activity as AppCompatActivity).supportActionBar?.title = "My Reservations"
                 var reservations: MutableList<SmallAdv> = mutableListOf()
                 rv.layoutManager = LinearLayoutManager(context)
 
@@ -250,6 +252,7 @@ class TimeSlotListFragment : Fragment(R.layout.fragment_time_slot_list) {
                 })
             } else {
                 fab.isVisible = true
+                (activity as AppCompatActivity).supportActionBar?.title = "My Advertisements"
 
                 fab.setOnClickListener {
                     val bundle = Bundle()

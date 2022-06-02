@@ -13,10 +13,10 @@
     <string name="use_camera">Use Camera</string>
     <string name="camera_not_available">Camera not available</string>
     <string name="sharedPrefsName">com.example.myapp.PREFERENCE_FILE_KEY</string>
-    <string name="navdrawer_time_slot_list">Your advertisements</string>
+    <string name="navdrawer_time_slot_list">Your Advertisements</string>
     <string name="navdrawer_show_profile">Profile</string>
-    <string name="navdrawer_interests_list">Your interests</string>
-    <string name="navdrawer_booked_list">Your reservations</string>
+    <string name="navdrawer_interests_list">Your Interests</string>
+    <string name="navdrawer_booked_list">Your Reservations</string>
     <string name="label_timeSlotEditFragment">Edit Advertisement</string>
     <string name="label_showProfileFragment">Profile</string>
     <string name="label_timeSlotDetailsFragment">Advertisement Details</string>
@@ -29,6 +29,7 @@
     <string name="adv_delete_succ">Removal successful</string>
     <string name="unsuccedes">Something went wrong. Please, try again!</string>
     <string name="no_adv">Sorry, no available advertisements for that search!</string>
+    <string name="no_skill">Sorry, no available skills for that search!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="small_adv_title">Title: </string>
@@ -60,4 +61,5 @@
     <string name="rating_header">Rate your experience below: </string>
     <string name="rating_min_err">The minimum rating is 1 star.</string>
     <string name="noCredit">L\'altro utente non ha credito sufficiente. Puoi attendere che lo maturi entro la data prevista o rifiutare la sua richiesta</string>
+    <string name="no_skill_at_all">Sorry, no available skills!</string>
 </resources>

@@ -11,11 +11,15 @@
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_search_white_24.xml" value="0.121" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.121" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.121" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout-land/fragment_edit_profile.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout-land/fragment_show_profile.xml" value="0.21516754850088182" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/activity_main.xml" value="0.12222222222222222" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_chat.xml" value="0.25" />
-        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_list_skills.xml" value="0.1" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_chat.xml" value="0.4" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_edit_profile.xml" value="0.19067028985507245" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_list_skills.xml" value="0.264" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_login.xml" value="0.12222222222222222" />
+        <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_show_profile.xml" value="0.22146739130434784" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_time_slot_details.xml" value="0.2" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_time_slot_edit.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/feder/Desktop/LastVersion/app/src/main/res/layout/fragment_time_slot_list.xml" value="0.2" />

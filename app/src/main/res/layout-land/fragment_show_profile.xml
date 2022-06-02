@@ -73,7 +73,9 @@
                             android:id="@+id/textViewNickname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:endIconMode="clear_text">
+                            app:endIconMode="clear_text"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/textViewNickname_ed"
@@ -116,6 +118,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -131,6 +134,8 @@
                             android:focusable="false"
                             android:hint="Credit"
                             android:inputType="none"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -149,10 +154,11 @@
                 </androidx.cardview.widget.CardView>
 
 
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="20dp"
                     app:cardElevation="0dp">
 
                     <LinearLayout
@@ -168,6 +174,8 @@
                             android:focusable="false"
                             android:hint="Full Name"
                             android:inputType="none"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_nome_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -188,6 +196,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="0dp">
 
@@ -204,6 +213,8 @@
                             android:focusable="false"
                             android:hint="Email"
                             android:inputType="none"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_email_64">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -224,6 +235,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="0dp">
 
@@ -240,6 +252,8 @@
                             android:focusable="false"
                             android:hint="Location"
                             android:inputType="none"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_segnaposto_50">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -262,6 +276,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="0dp">
 
@@ -275,6 +290,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Description"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
                             app:startIconDrawable="@drawable/ic_icons8_documento_50">
 
                             >
@@ -299,6 +316,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="0dp">
 
@@ -341,6 +359,7 @@
                     android:id="@+id/chipGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="40dp" />
 
             </LinearLayout>

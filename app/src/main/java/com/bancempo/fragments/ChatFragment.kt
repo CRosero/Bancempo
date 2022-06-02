@@ -3,10 +3,7 @@ package com.bancempo.fragments
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -33,8 +30,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
     private lateinit var sendButton: Button
 
     private lateinit var textAcceptOrRefuse: TextView
-    private lateinit var acceptButton: Button
-    private lateinit var refuseButton: Button
+    private lateinit var acceptButton: ImageButton
+    private lateinit var refuseButton: ImageButton
     private lateinit var tvNoCredit: TextView
 
     private lateinit var textMsg: EditText
@@ -61,8 +58,8 @@ class ChatFragment : Fragment(R.layout.fragment_chat) {
         textMsg = view.findViewById(R.id.edit_gchat_message)
 
         textAcceptOrRefuse = view.findViewById(R.id.textAcceptOrRefuse)
-        acceptButton = view.findViewById(R.id.acceptProposal)
-        refuseButton = view.findViewById(R.id.refuseProposal)
+        acceptButton = view.findViewById<ImageButton>(R.id.acceptProposal)
+        refuseButton = view.findViewById<ImageButton>(R.id.refuseProposal)
 
 
         //Appena apro la chat se non è una conversazione nuova devo caricare i messaggi

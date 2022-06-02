@@ -136,6 +136,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         loadMyRatings(email)
         loadAdvs()
         loadBookedAdvs()
+        //loadAllMessages()
     }
 
     fun uploadBitmap(btm: Bitmap, view: View, skillsString: String) {
@@ -237,6 +238,7 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
         val servicesDocRef = db.collection("services")
         val advsDocRef = db.collection("advertisements")
         val rating = view.findViewById<RatingBar>(R.id.ratingBar).rating.toDouble()
+        val convsDocRef = db.collection("conversations")
         val fullname = view.findViewById<TextInputEditText>(R.id.editTextFullName).text.toString()
         val nickname = view.findViewById<TextInputEditText>(R.id.editTextNickname).text.toString()
         val email = view.findViewById<TextInputEditText>(R.id.editTextEmail).text.toString()
@@ -277,13 +279,22 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     currentUser.value!!.credit
                 )
 
+                //elimina solo gli annunci che non sono prenotati,
+                //quelli booked restano con una skill "pendente"
                 val advsToDelete = advs.value!!.values
                     .filter { x ->
                         x.userId == currentUser.value!!.email
                                 && containsSkill(toDelete, x.skill.split(","))
+                                && !x.booked
                     }
                     .toList()
 
+                //dobbiamo eliminare anche le relative conversazioni con i vari messaggi
+                val convsToDelete = mutableListOf<Conversation>()
+                for (advtoDel in advsToDelete) {
+                    //elimino tutte le conversazioni a chiuse relative agli annunci da eliminare
+                    convsToDelete.addAll(conversations.value!!.values.filter { x -> x.idAdv == advtoDel.id})
+                }
 
                 db.runBatch { batch ->
                     //1st: create new service for each element of addingList
@@ -326,6 +337,12 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                     for (advToDelete in advsToDelete) {
                         val docToDel = advsDocRef.document(advToDelete.id)
                         batch.delete(docToDel)
+                    }
+
+                    for (convToDel in convsToDelete) {
+                        val docToDel = convsDocRef.document(convToDel.idConv)
+                        batch.delete(docToDel)
+                        deleteMessageOfConv(convToDel.idConv)
                     }
 
                     //3rd: replace list of skills in user
@@ -692,6 +709,29 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
             }
     }
 
+    fun loadAllMessages() {
+        db.collection("messages")
+            .addSnapshotListener { r, e ->
+                if (e != null)
+                    messages.value = hashMapOf()
+                else {
+                    val msgsMap: HashMap<String, Message> = hashMapOf()
+                    for (doc in r!!) {
+                        val idMsg = doc.getString("idMsg")
+                        val idConv = doc.getString("idConv")
+                        val date = doc.getString("date")
+                        val text = doc.getString("text")
+                        val from = doc.getString("from")
+                        val to = doc.getString("to")
+                        val readed = doc.getBoolean("readed")
+                        val msg = Message(idMsg!!, idConv!!, date!!, text!!, from!!, to!!, readed!!)
+                        msgsMap[doc.id] = msg
+                    }
+                    messages.value = msgsMap
+                }
+            }
+    }
+
     fun loadMessages(idConv: String) {
         db.collection("messages")
             .whereEqualTo("idConv", idConv)
@@ -706,8 +746,8 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                         val text = doc.getString("text")
                         val from = doc.getString("from")
                         val to = doc.getString("to")
-                        println("msg: $text")
-                        val msg = Message(idMsg!!, idConv, date!!, text!!, from!!, to!!, false)
+                        val readed = doc.getBoolean("readed")
+                        val msg = Message(idMsg!!, idConv, date!!, text!!, from!!, to!!, readed!!)
                         msgsMap[doc.id] = msg
                     }
                     messages.value = msgsMap
@@ -903,6 +943,16 @@ class SharedViewModel(private val app: Application) : AndroidViewModel(app) {
                 Toast.makeText(app.applicationContext, "Transaction Failed!", Toast.LENGTH_SHORT)
                     .show()
             }
+    }
+
+    fun deleteMessageOfConv(idConv: String){
+        val messagesDocRef = db.collection("messages")
+
+        messagesDocRef.whereEqualTo("idConv", idConv).get().addOnSuccessListener { documents ->
+            for(doc in documents){
+                doc.reference.delete()
+            }
+        }
     }
 }
 

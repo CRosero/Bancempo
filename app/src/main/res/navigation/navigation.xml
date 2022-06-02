@@ -104,7 +104,7 @@
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.bancempo.fragments.ChatFragment"
-        android:label="Pattidegi" >
+        android:label="Chat" >
         <action
             android:id="@+id/action_chatFragment_to_timeSlotDetailsFragment"
             app:destination="@id/timeSlotDetailsFragment" />
