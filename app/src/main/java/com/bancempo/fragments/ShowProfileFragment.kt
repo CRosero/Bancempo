@@ -63,7 +63,7 @@ class ShowProfileFragment : Fragment(R.layout.fragment_show_profile) {
             skillsEd.setText("")
             ratingBar.rating = user.rating.toFloat()
             ratingTV.text = user.rating.toString()
-            ratingAmountTV.text = "(${sharedVM.myRatings.value!!.size})"
+            ratingAmountTV.text = "(${sharedVM.myReceivedRatings.value!!.size})"
 
 
             chipGroup.removeAllViews()
